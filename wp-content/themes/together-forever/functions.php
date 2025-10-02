@@ -308,3 +308,124 @@ function together_forever_acf_json_load_point($paths) {
     return $paths;
 }
 add_filter('acf/settings/load_json', 'together_forever_acf_json_load_point');
+
+/**
+ * Enable SVG Upload Support
+ * 
+ * This function allows SVG files to be uploaded to WordPress media library
+ */
+function together_forever_enable_svg_upload($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    $mimes['svgz'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'together_forever_enable_svg_upload');
+
+/**
+ * Fix SVG display in media library
+ * 
+ * This function ensures SVG files display properly in the WordPress admin
+ */
+function together_forever_fix_svg_display($response, $attachment, $meta) {
+    if ($response['type'] === 'image' && $response['subtype'] === 'svg+xml') {
+        $response['image'] = array(
+            'src' => $response['url'],
+            'width' => 150,
+            'height' => 150
+        );
+        $response['thumb'] = array(
+            'src' => $response['url'],
+            'width' => 150,
+            'height' => 150
+        );
+    }
+    return $response;
+}
+add_filter('wp_prepare_attachment_for_js', 'together_forever_fix_svg_display', 10, 3);
+
+/**
+ * Add SVG support to media library
+ * 
+ * This function adds proper MIME type support for SVG files
+ */
+function together_forever_add_svg_support() {
+    // Add SVG support to allowed file types
+    add_filter('wp_check_filetype_and_ext', 'together_forever_fix_svg_upload', 10, 4);
+}
+add_action('init', 'together_forever_add_svg_support');
+
+/**
+ * Fix SVG file type detection
+ * 
+ * This function ensures WordPress properly recognizes SVG files
+ */
+function together_forever_fix_svg_upload($data, $file, $filename, $mimes) {
+    $filetype = wp_check_filetype($filename, $mimes);
+    return array(
+        'ext' => $filetype['ext'],
+        'type' => $filetype['type'],
+        'proper_filename' => $data['proper_filename']
+    );
+}
+
+/**
+ * Sanitize SVG uploads for security
+ * 
+ * This function sanitizes SVG content to prevent XSS attacks
+ */
+function together_forever_sanitize_svg_upload($file) {
+    if ($file['type'] === 'image/svg+xml') {
+        $svg_content = file_get_contents($file['tmp_name']);
+        
+        // Remove potentially dangerous elements and attributes
+        $dangerous_elements = array('script', 'object', 'embed', 'link', 'foreignobject');
+        $dangerous_attributes = array('onload', 'onerror', 'onclick', 'onmouseover', 'href', 'xlink:href');
+        
+        // Remove dangerous elements
+        foreach ($dangerous_elements as $element) {
+            $svg_content = preg_replace('/<' . $element . '[^>]*>.*?<\/' . $element . '>/is', '', $svg_content);
+            $svg_content = preg_replace('/<' . $element . '[^>]*\/>/is', '', $svg_content);
+        }
+        
+        // Remove dangerous attributes
+        foreach ($dangerous_attributes as $attr) {
+            $svg_content = preg_replace('/\s*' . $attr . '\s*=\s*["\'][^"\']*["\']/i', '', $svg_content);
+        }
+        
+        // Write sanitized content back to temp file
+        file_put_contents($file['tmp_name'], $svg_content);
+    }
+    
+    return $file;
+}
+add_filter('wp_handle_upload_prefilter', 'together_forever_sanitize_svg_upload');
+
+/**
+ * Add SVG preview in media library
+ * 
+ * This function adds a preview for SVG files in the media library
+ */
+function together_forever_svg_media_thumbnails($response, $attachment, $meta) {
+    if ($response['type'] === 'image' && $response['subtype'] === 'svg+xml') {
+        $response['image'] = array(
+            'src' => $response['url'],
+            'width' => 150,
+            'height' => 150
+        );
+        $response['thumb'] = array(
+            'src' => $response['url'],
+            'width' => 150,
+            'height' => 150
+        );
+        $response['sizes'] = array(
+            'full' => array(
+                'url' => $response['url'],
+                'width' => 150,
+                'height' => 150,
+                'orientation' => 'landscape'
+            )
+        );
+    }
+    return $response;
+}
+add_filter('wp_prepare_attachment_for_js', 'together_forever_svg_media_thumbnails', 10, 3);
