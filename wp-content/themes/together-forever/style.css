@@ -1,10 +1,15 @@
 /*
 Theme Name: Together Forever
-Description: A child theme of Twenty Twenty-Five for the Forever Together website. This theme extends the parent theme with custom styling and functionality while maintaining all the parent theme's features.
+Description: A child theme of Astra for the Forever Together website. This theme extends the parent theme with custom styling and functionality while maintaining all the parent theme's features and performance.
 Author: Forever Together Team
-Template: twentytwentyfive
+Template: astra
 Version: 1.0.0
 Text Domain: together-forever
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 /* 
@@ -12,14 +17,32 @@ Text Domain: together-forever
  * The parent theme styles are automatically loaded via functions.php
  */
 
-/* Custom styles for Together Forever theme */
+/* ==========================================================================
+   Custom styles for Together Forever theme
+   ========================================================================== */
+
+/* Custom body styles */
 body {
     /* Add any custom body styles here */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Custom header styles */
 .site-header {
     /* Add custom header styles here */
+}
+
+.site-header .main-header-bar {
+    /* Customize the main header bar */
+}
+
+/* Custom navigation styles */
+.main-navigation {
+    /* Add custom navigation styles here */
+}
+
+.main-navigation ul li a {
+    /* Customize navigation links */
 }
 
 /* Custom footer styles */
@@ -32,28 +55,190 @@ body {
     /* Add custom content styles here */
 }
 
+.entry-content p {
+    /* Customize paragraph styles */
+}
+
 /* Custom button styles */
-.wp-block-button__link {
+.wp-block-button__link,
+.button,
+button,
+input[type="button"],
+input[type="submit"] {
     /* Add custom button styles here */
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 /* Custom typography */
 h1, h2, h3, h4, h5, h6 {
     /* Add custom heading styles here */
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
 }
 
 /* Custom color scheme */
 :root {
     /* Add custom CSS variables here */
-    --wp--preset--color--primary: #your-color;
-    --wp--preset--color--secondary: #your-color;
+    --ast-global-color-0: #ffffff;
+    --ast-global-color-1: #000000;
+    --ast-global-color-2: #f0f0f0;
+    --ast-global-color-3: #333333;
+    --ast-global-color-4: #007cba;
+    --ast-global-color-5: #e5e5e5;
+    --ast-global-color-6: #f8f9fa;
+    --ast-global-color-7: #6c757d;
+    --ast-global-color-8: #28a745;
+    --ast-global-color-9: #dc3545;
 }
 
+/* Custom blog styles */
+.blog-layout-1 .post-thumb {
+    /* Customize blog post thumbnails */
+}
+
+.blog-layout-1 .entry-header {
+    /* Customize blog post headers */
+}
+
+/* Custom single post styles */
+.single-post .entry-header {
+    /* Customize single post headers */
+}
+
+.single-post .entry-content {
+    /* Customize single post content */
+}
+
+/* Custom page styles */
+.page .entry-content {
+    /* Customize page content */
+}
+
+/* Custom sidebar styles */
+.widget-area {
+    /* Customize sidebar styles */
+}
+
+.widget {
+    /* Customize widget styles */
+}
+
+/* Custom form styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+    /* Customize form input styles */
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--ast-global-color-4);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.1);
+}
+
+/* Custom block styles */
+.wp-block-group {
+    /* Customize block group styles */
+}
+
+.wp-block-columns {
+    /* Customize column block styles */
+}
+
+/* Custom utility classes */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
 /* Responsive design adjustments */
+@media (max-width: 1200px) {
+    /* Large desktop adjustments */
+}
+
+@media (max-width: 992px) {
+    /* Desktop adjustments */
+    h1 { font-size: 2.25rem; }
+    h2 { font-size: 1.875rem; }
+    h3 { font-size: 1.5rem; }
+}
+
 @media (max-width: 768px) {
-    /* Add mobile-specific styles here */
+    /* Tablet adjustments */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.375rem; }
+    
+    .site-header .main-header-bar {
+        /* Mobile header adjustments */
+    }
 }
 
 @media (max-width: 480px) {
-    /* Add small mobile-specific styles here */
+    /* Mobile adjustments */
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    
+    .entry-content {
+        /* Mobile content adjustments */
+    }
+}
+
+/* Print styles */
+@media print {
+    .site-header,
+    .site-footer,
+    .main-navigation {
+        display: none;
+    }
+    
+    .entry-content {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
 }

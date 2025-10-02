@@ -3,7 +3,7 @@
  * Together Forever Child Theme Functions
  * 
  * This file enqueues the parent theme styles and allows you to add
- * custom functionality to your child theme.
+ * custom functionality to your child theme based on Astra.
  * 
  * @package Together_Forever
  * @since 1.0.0
@@ -22,8 +22,8 @@ if (!defined('ABSPATH')) {
  */
 function together_forever_enqueue_styles() {
     // Get the parent theme's version for cache busting
-    $parent_style = 'twentytwentyfive-style';
-    $parent_version = wp_get_theme('twentytwentyfive')->get('Version');
+    $parent_style = 'astra-theme-css';
+    $parent_version = wp_get_theme('astra')->get('Version');
     
     // Enqueue parent theme stylesheet
     wp_enqueue_style(
@@ -67,8 +67,25 @@ add_action('wp_enqueue_scripts', 'together_forever_enqueue_scripts');
  */
 function together_forever_theme_support() {
     // Add custom theme support features here
-    // Example: add_theme_support('custom-logo');
-    // Example: add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo');
+    add_theme_support('post-thumbnails');
+    add_theme_support('title-tag');
+    add_theme_support('html5', array(
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+    ));
+    
+    // Add support for wide and full width blocks
+    add_theme_support('align-wide');
+    
+    // Add support for editor styles
+    add_theme_support('editor-styles');
+    
+    // Add support for responsive embeds
+    add_theme_support('responsive-embeds');
 }
 add_action('after_setup_theme', 'together_forever_theme_support');
 
@@ -104,6 +121,41 @@ function together_forever_body_classes($classes) {
     return $classes;
 }
 add_filter('body_class', 'together_forever_body_classes');
+
+/**
+ * Customize Astra theme options
+ * 
+ * This function allows you to override Astra theme options
+ */
+function together_forever_astra_options($defaults) {
+    // Override Astra default options here
+    // Example: $defaults['blog-layout'] = 'blog-layout-1';
+    
+    return $defaults;
+}
+add_filter('astra_theme_defaults', 'together_forever_astra_options');
+
+/**
+ * Add custom CSS to Astra's dynamic CSS
+ * 
+ * This function adds custom CSS to Astra's dynamic CSS output
+ */
+function together_forever_dynamic_css($dynamic_css) {
+    // Add custom CSS here that will be included in Astra's dynamic CSS
+    $custom_css = "
+        /* Custom Together Forever styles */
+        .site-header .main-header-bar {
+            /* Add custom header styles here */
+        }
+        
+        .main-navigation ul li a {
+            /* Add custom navigation styles here */
+        }
+    ";
+    
+    return $dynamic_css . $custom_css;
+}
+add_filter('astra_dynamic_css', 'together_forever_dynamic_css');
 
 /**
  * Customize the login page
@@ -146,3 +198,71 @@ add_filter('body_class', 'together_forever_body_classes');
 //     echo 'Customized by Together Forever Theme';
 // }
 // add_filter('admin_footer_text', 'together_forever_admin_footer');
+
+/**
+ * Add custom post types support
+ * 
+ * Uncomment and modify as needed
+ */
+// function together_forever_add_post_type_support() {
+//     // Add support for custom post types
+//     add_post_type_support('page', 'excerpt');
+// }
+// add_action('init', 'together_forever_add_post_type_support');
+
+/**
+ * Customize Astra's color palette
+ * 
+ * This function allows you to customize Astra's color palette
+ */
+function together_forever_astra_colors($colors) {
+    // Add custom colors to Astra's palette
+    // Example: $colors['custom-color'] = '#ff0000';
+    
+    return $colors;
+}
+add_filter('astra_color_palettes', 'together_forever_astra_colors');
+
+/**
+ * Add custom fonts
+ * 
+ * This function allows you to add custom fonts to your theme
+ */
+function together_forever_custom_fonts() {
+    // Add custom font imports here
+    // Example: wp_enqueue_style('custom-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+}
+add_action('wp_enqueue_scripts', 'together_forever_custom_fonts');
+
+/**
+ * Customize Astra's typography
+ * 
+ * This function allows you to customize Astra's typography settings
+ */
+function together_forever_astra_typography($typography) {
+    // Customize typography settings here
+    // Example: $typography['body-font-family'] = 'Inter, sans-serif';
+    
+    return $typography;
+}
+add_filter('astra_typography_defaults', 'together_forever_astra_typography');
+
+/**
+ * Add custom widget areas
+ * 
+ * This function allows you to add custom widget areas
+ */
+function together_forever_widgets_init() {
+    // Register custom widget areas here
+    // Example:
+    // register_sidebar(array(
+    //     'name'          => __('Custom Sidebar', 'together-forever'),
+    //     'id'            => 'custom-sidebar',
+    //     'description'   => __('Add widgets here.', 'together-forever'),
+    //     'before_widget' => '<section id="%1$s" class="widget %2$s">',
+    //     'after_widget'  => '</section>',
+    //     'before_title'  => '<h2 class="widget-title">',
+    //     'after_title'   => '</h2>',
+    // ));
+}
+add_action('widgets_init', 'together_forever_widgets_init');
