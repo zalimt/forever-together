@@ -65,6 +65,16 @@ function together_forever_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'together_forever_enqueue_styles');
 
 /**
+ * Register navigation menus
+ */
+function together_forever_register_menus() {
+    register_nav_menus(array(
+        'primary' => __('Primary Menu', 'together-forever'),
+    ));
+}
+add_action('init', 'together_forever_register_menus');
+
+/**
  * Enqueue child theme scripts
  * 
  * Add custom JavaScript files here if needed
