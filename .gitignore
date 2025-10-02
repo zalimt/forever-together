@@ -1,0 +1,71 @@
+# WordPress Core Files
+wp-config.php
+wp-config-sample.php
+
+# WordPress Uploads
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+
+# WordPress Cache
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+
+# WordPress Debug
+wp-content/debug.log
+wp-content/error_log
+
+# Local Development
+local-xdebuginfo.php
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node.js (if using build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Composer (if using)
+vendor/
+composer.lock
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+
+# Plugin specific ignores (common ones)
+wp-content/plugins/hello.php
+wp-content/plugins/akismet/
+
+# Theme specific ignores (if needed)
+# wp-content/themes/twentytwentyone/
+# wp-content/themes/twentytwentytwo/
+# wp-content/themes/twentytwentythree/
+# wp-content/themes/twentytwentyfour/
+
+# Custom ignores for this project
+# Add any project-specific files/folders to ignore here
