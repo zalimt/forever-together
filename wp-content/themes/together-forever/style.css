@@ -1,0 +1,59 @@
+/*
+Theme Name: Together Forever
+Description: A child theme of Twenty Twenty-Five for the Forever Together website. This theme extends the parent theme with custom styling and functionality while maintaining all the parent theme's features.
+Author: Forever Together Team
+Template: twentytwentyfive
+Version: 1.0.0
+Text Domain: together-forever
+*/
+
+/* 
+ * Child theme styles will be added here
+ * The parent theme styles are automatically loaded via functions.php
+ */
+
+/* Custom styles for Together Forever theme */
+body {
+    /* Add any custom body styles here */
+}
+
+/* Custom header styles */
+.site-header {
+    /* Add custom header styles here */
+}
+
+/* Custom footer styles */
+.site-footer {
+    /* Add custom footer styles here */
+}
+
+/* Custom content styles */
+.entry-content {
+    /* Add custom content styles here */
+}
+
+/* Custom button styles */
+.wp-block-button__link {
+    /* Add custom button styles here */
+}
+
+/* Custom typography */
+h1, h2, h3, h4, h5, h6 {
+    /* Add custom heading styles here */
+}
+
+/* Custom color scheme */
+:root {
+    /* Add custom CSS variables here */
+    --wp--preset--color--primary: #your-color;
+    --wp--preset--color--secondary: #your-color;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    /* Add mobile-specific styles here */
+}
+
+@media (max-width: 480px) {
+    /* Add small mobile-specific styles here */
+}
