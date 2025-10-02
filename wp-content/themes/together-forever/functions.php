@@ -33,13 +33,34 @@ function together_forever_enqueue_styles() {
         $parent_version
     );
     
-    // Enqueue child theme stylesheet
+    // Enqueue compiled SCSS stylesheets
+    $theme_version = wp_get_theme()->get('Version');
+    
+    // Enqueue root styles (CSS variables and base styles)
     wp_enqueue_style(
-        'together-forever-style',
-        get_stylesheet_directory_uri() . '/style.css',
+        'together-forever-root',
+        get_stylesheet_directory_uri() . '/css/root.css',
         array($parent_style),
-        wp_get_theme()->get('Version')
+        $theme_version
     );
+    
+    // Enqueue main styles (component styles)
+    wp_enqueue_style(
+        'together-forever-main',
+        get_stylesheet_directory_uri() . '/css/main.css',
+        array('together-forever-root'),
+        $theme_version
+    );
+    
+    // Fallback: Enqueue original child theme stylesheet if compiled CSS doesn't exist
+    if (!file_exists(get_stylesheet_directory() . '/css/root.css') || !file_exists(get_stylesheet_directory() . '/css/main.css')) {
+        wp_enqueue_style(
+            'together-forever-fallback',
+            get_stylesheet_directory_uri() . '/style.css',
+            array($parent_style),
+            $theme_version
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'together_forever_enqueue_styles');
 

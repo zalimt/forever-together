@@ -1,0 +1,38 @@
+{
+  "name": "together-forever-theme",
+  "version": "1.0.0",
+  "description": "Together Forever WordPress child theme with SCSS support",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:css",
+    "build:css": "sass scss/root.scss css/root.css --style=compressed --source-map && sass scss/main.scss css/main.css --style=compressed --source-map",
+    "watch": "npm run watch:css",
+    "watch:css": "sass scss/root.scss css/root.css --watch --style=expanded --source-map & sass scss/main.scss css/main.css --watch --style=expanded --source-map",
+    "dev": "npm run watch:css",
+    "clean": "rm -rf css/*.css css/*.css.map",
+    "install-deps": "npm install"
+  },
+  "keywords": [
+    "wordpress",
+    "theme",
+    "child-theme",
+    "astra",
+    "scss",
+    "sass",
+    "css"
+  ],
+  "author": "Forever Together Team",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "sass": "^1.69.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
