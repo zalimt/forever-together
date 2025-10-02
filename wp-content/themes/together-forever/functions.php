@@ -287,3 +287,24 @@ function together_forever_widgets_init() {
     // ));
 }
 add_action('widgets_init', 'together_forever_widgets_init');
+
+/**
+ * ACF JSON Configuration
+ * 
+ * This function configures ACF Pro to save and load field groups from JSON files
+ */
+function together_forever_acf_json_save_point($path) {
+    // Update path to point to your theme's acf-json folder
+    $path = get_stylesheet_directory() . '/acf-json';
+    return $path;
+}
+add_filter('acf/settings/save_json', 'together_forever_acf_json_save_point');
+
+function together_forever_acf_json_load_point($paths) {
+    // Remove the original path
+    unset($paths[0]);
+    // Add the new path
+    $paths[] = get_stylesheet_directory() . '/acf-json';
+    return $paths;
+}
+add_filter('acf/settings/load_json', 'together_forever_acf_json_load_point');
