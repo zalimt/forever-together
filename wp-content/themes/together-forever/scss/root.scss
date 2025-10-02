@@ -13,331 +13,226 @@
    ========================================================================== */
 
 :root {
-  /* Color Palette */
-  --tf-primary: #007cba;
-  --tf-primary-dark: #005a87;
-  --tf-primary-light: #4a9fd1;
-  --tf-secondary: #6c757d;
-  --tf-secondary-dark: #495057;
-  --tf-secondary-light: #adb5bd;
-  --tf-accent: #28a745;
-  --tf-accent-dark: #1e7e34;
-  --tf-accent-light: #5cb85c;
-  --tf-danger: #dc3545;
-  --tf-warning: #ffc107;
-  --tf-info: #17a2b8;
-  --tf-light: #f8f9fa;
-  --tf-dark: #343a40;
-  
-  /* Neutral Colors */
-  --tf-white: #ffffff;
-  --tf-black: #000000;
-  --tf-gray-100: #f8f9fa;
-  --tf-gray-200: #e9ecef;
-  --tf-gray-300: #dee2e6;
-  --tf-gray-400: #ced4da;
-  --tf-gray-500: #adb5bd;
-  --tf-gray-600: #6c757d;
-  --tf-gray-700: #495057;
-  --tf-gray-800: #343a40;
-  --tf-gray-900: #212529;
-  
-  /* Typography */
-  --tf-font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --tf-font-family-secondary: 'Georgia', 'Times New Roman', serif;
-  --tf-font-family-mono: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  
-  /* Font Sizes */
-  --tf-font-size-xs: 0.75rem;    /* 12px */
-  --tf-font-size-sm: 0.875rem;   /* 14px */
-  --tf-font-size-base: 1rem;     /* 16px */
-  --tf-font-size-lg: 1.125rem;   /* 18px */
-  --tf-font-size-xl: 1.25rem;    /* 20px */
-  --tf-font-size-2xl: 1.5rem;    /* 24px */
-  --tf-font-size-3xl: 1.875rem;  /* 30px */
-  --tf-font-size-4xl: 2.25rem;   /* 36px */
-  --tf-font-size-5xl: 3rem;      /* 48px */
-  --tf-font-size-6xl: 3.75rem;   /* 60px */
-  
-  /* Font Weights */
-  --tf-font-weight-light: 300;
-  --tf-font-weight-normal: 400;
-  --tf-font-weight-medium: 500;
-  --tf-font-weight-semibold: 600;
-  --tf-font-weight-bold: 700;
-  --tf-font-weight-extrabold: 800;
-  
-  /* Line Heights */
-  --tf-line-height-none: 1;
-  --tf-line-height-tight: 1.25;
-  --tf-line-height-snug: 1.375;
-  --tf-line-height-normal: 1.5;
-  --tf-line-height-relaxed: 1.625;
-  --tf-line-height-loose: 2;
-  
-  /* Spacing */
-  --tf-spacing-0: 0;
-  --tf-spacing-1: 0.25rem;   /* 4px */
-  --tf-spacing-2: 0.5rem;    /* 8px */
-  --tf-spacing-3: 0.75rem;   /* 12px */
-  --tf-spacing-4: 1rem;      /* 16px */
-  --tf-spacing-5: 1.25rem;   /* 20px */
-  --tf-spacing-6: 1.5rem;    /* 24px */
-  --tf-spacing-8: 2rem;      /* 32px */
-  --tf-spacing-10: 2.5rem;   /* 40px */
-  --tf-spacing-12: 3rem;     /* 48px */
-  --tf-spacing-16: 4rem;     /* 64px */
-  --tf-spacing-20: 5rem;     /* 80px */
-  --tf-spacing-24: 6rem;     /* 96px */
-  --tf-spacing-32: 8rem;     /* 128px */
-  
-  /* Border Radius */
-  --tf-border-radius-none: 0;
-  --tf-border-radius-sm: 0.125rem;   /* 2px */
-  --tf-border-radius: 0.25rem;       /* 4px */
-  --tf-border-radius-md: 0.375rem;   /* 6px */
-  --tf-border-radius-lg: 0.5rem;     /* 8px */
-  --tf-border-radius-xl: 0.75rem;    /* 12px */
-  --tf-border-radius-2xl: 1rem;      /* 16px */
-  --tf-border-radius-full: 9999px;
-  
-  /* Shadows */
-  --tf-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --tf-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --tf-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --tf-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --tf-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --tf-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --tf-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-  
-  /* Transitions */
-  --tf-transition-none: none;
-  --tf-transition-all: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --tf-transition-default: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --tf-transition-colors: color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --tf-transition-opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --tf-transition-shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --tf-transition-transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Z-Index Scale */
-  --tf-z-index-dropdown: 1000;
-  --tf-z-index-sticky: 1020;
-  --tf-z-index-fixed: 1030;
-  --tf-z-index-modal-backdrop: 1040;
-  --tf-z-index-modal: 1050;
-  --tf-z-index-popover: 1060;
-  --tf-z-index-tooltip: 1070;
-  
-  /* Breakpoints (for reference in media queries) */
-  --tf-breakpoint-sm: 576px;
-  --tf-breakpoint-md: 768px;
-  --tf-breakpoint-lg: 992px;
-  --tf-breakpoint-xl: 1200px;
-  --tf-breakpoint-2xl: 1400px;
+  /* Brand Colors */
+  --tf-purple: #5C2483;
+  --tf-pink: #951B81;
+  --tf-gray: #333;
+  --tf-purple-gradient: linear-gradient(90deg, #5C2483 0%, #951B81 100%);
 }
 
 /* ==========================================================================
-   Base Styles
+   Font Face Declarations
    ========================================================================== */
 
-/* Reset and normalize */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
 }
 
-html {
-  line-height: var(--tf-line-height-normal);
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
 }
 
-body {
-  margin: 0;
-  font-family: var(--tf-font-family-primary);
-  font-size: var(--tf-font-size-base);
-  font-weight: var(--tf-font-weight-normal);
-  line-height: var(--tf-line-height-normal);
-  color: var(--tf-gray-800);
-  background-color: var(--tf-white);
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-UltraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 var(--tf-spacing-4) 0;
-  font-weight: var(--tf-font-weight-semibold);
-  line-height: var(--tf-line-height-tight);
-  color: var(--tf-gray-900);
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-UltraLightIt.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
 }
 
-h1 { font-size: var(--tf-font-size-4xl); }
-h2 { font-size: var(--tf-font-size-3xl); }
-h3 { font-size: var(--tf-font-size-2xl); }
-h4 { font-size: var(--tf-font-size-xl); }
-h5 { font-size: var(--tf-font-size-lg); }
-h6 { font-size: var(--tf-font-size-base); }
-
-p {
-  margin: 0 0 var(--tf-spacing-4) 0;
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
-a {
-  color: var(--tf-primary);
-  text-decoration: none;
-  transition: var(--tf-transition-colors);
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Demi.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-DemiItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-Heavy.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('../fonts/AvenirNextCyr-HeavyItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Typography Variables
+   ========================================================================== */
+
+:root {
+  /* Font Families */
+  --tf-avenir: 'Avenir Next Cyr', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
-  &:hover,
-  &:focus {
-    color: var(--tf-primary-dark);
-    text-decoration: underline;
+  /* Font Weights */
+  --tf-fw-100: 100;
+  --tf-fw-200: 200;
+  --tf-fw-300: 300;
+  --tf-fw-400: 400;
+  --tf-fw-500: 500;
+  --tf-fw-600: 600;
+  --tf-fw-700: 700;
+  --tf-fw-800: 800;
+}
+
+/* ==========================================================================
+   Page Structure
+   ========================================================================== */
+
+/* Override Astra theme container constraints */
+.ast-container {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Article container - full width of the page */
+article {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section with max-width and centering */
+section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+  
+  @media (min-width: 1200px) {
+    padding: 0 3rem;
   }
 }
 
-/* Lists */
-ul, ol {
-  margin: 0 0 var(--tf-spacing-4) 0;
-  padding-left: var(--tf-spacing-6);
+/* Alternative class-based approach */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+  
+  @media (min-width: 1200px) {
+    padding: 0 3rem;
+  }
 }
 
-li {
-  margin-bottom: var(--tf-spacing-2);
+/* Content wrapper */
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+  
+  @media (min-width: 1200px) {
+    padding: 0 3rem;
+  }
 }
 
-/* Images */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Form Elements */
-input,
-textarea,
-select {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-button {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  cursor: pointer;
-}
-
-/* Focus Styles */
-:focus {
-  outline: 2px solid var(--tf-primary);
-  outline-offset: 2px;
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* Selection */
-::selection {
-  background-color: var(--tf-primary);
-  color: var(--tf-white);
-}
-
-/* ==========================================================================
-   Utility Classes
-   ========================================================================== */
-
-/* Display */
-.d-none { display: none !important; }
-.d-inline { display: inline !important; }
-.d-inline-block { display: inline-block !important; }
-.d-block { display: block !important; }
-.d-flex { display: flex !important; }
-.d-inline-flex { display: inline-flex !important; }
-.d-grid { display: grid !important; }
-
-/* Text Alignment */
-.text-left { text-align: left !important; }
-.text-center { text-align: center !important; }
-.text-right { text-align: right !important; }
-.text-justify { text-align: justify !important; }
-
-/* Text Color */
-.text-primary { color: var(--tf-primary) !important; }
-.text-secondary { color: var(--tf-secondary) !important; }
-.text-success { color: var(--tf-accent) !important; }
-.text-danger { color: var(--tf-danger) !important; }
-.text-warning { color: var(--tf-warning) !important; }
-.text-info { color: var(--tf-info) !important; }
-.text-light { color: var(--tf-light) !important; }
-.text-dark { color: var(--tf-dark) !important; }
-.text-white { color: var(--tf-white) !important; }
-.text-muted { color: var(--tf-gray-600) !important; }
-
-/* Background Color */
-.bg-primary { background-color: var(--tf-primary) !important; }
-.bg-secondary { background-color: var(--tf-secondary) !important; }
-.bg-success { background-color: var(--tf-accent) !important; }
-.bg-danger { background-color: var(--tf-danger) !important; }
-.bg-warning { background-color: var(--tf-warning) !important; }
-.bg-info { background-color: var(--tf-info) !important; }
-.bg-light { background-color: var(--tf-light) !important; }
-.bg-dark { background-color: var(--tf-dark) !important; }
-.bg-white { background-color: var(--tf-white) !important; }
-.bg-transparent { background-color: transparent !important; }
-
-/* Spacing */
-.m-0 { margin: var(--tf-spacing-0) !important; }
-.m-1 { margin: var(--tf-spacing-1) !important; }
-.m-2 { margin: var(--tf-spacing-2) !important; }
-.m-3 { margin: var(--tf-spacing-3) !important; }
-.m-4 { margin: var(--tf-spacing-4) !important; }
-.m-5 { margin: var(--tf-spacing-5) !important; }
-.m-6 { margin: var(--tf-spacing-6) !important; }
-.m-8 { margin: var(--tf-spacing-8) !important; }
-
-.mt-0 { margin-top: var(--tf-spacing-0) !important; }
-.mt-1 { margin-top: var(--tf-spacing-1) !important; }
-.mt-2 { margin-top: var(--tf-spacing-2) !important; }
-.mt-3 { margin-top: var(--tf-spacing-3) !important; }
-.mt-4 { margin-top: var(--tf-spacing-4) !important; }
-.mt-5 { margin-top: var(--tf-spacing-5) !important; }
-.mt-6 { margin-top: var(--tf-spacing-6) !important; }
-.mt-8 { margin-top: var(--tf-spacing-8) !important; }
-
-.mb-0 { margin-bottom: var(--tf-spacing-0) !important; }
-.mb-1 { margin-bottom: var(--tf-spacing-1) !important; }
-.mb-2 { margin-bottom: var(--tf-spacing-2) !important; }
-.mb-3 { margin-bottom: var(--tf-spacing-3) !important; }
-.mb-4 { margin-bottom: var(--tf-spacing-4) !important; }
-.mb-5 { margin-bottom: var(--tf-spacing-5) !important; }
-.mb-6 { margin-bottom: var(--tf-spacing-6) !important; }
-.mb-8 { margin-bottom: var(--tf-spacing-8) !important; }
-
-.p-0 { padding: var(--tf-spacing-0) !important; }
-.p-1 { padding: var(--tf-spacing-1) !important; }
-.p-2 { padding: var(--tf-spacing-2) !important; }
-.p-3 { padding: var(--tf-spacing-3) !important; }
-.p-4 { padding: var(--tf-spacing-4) !important; }
-.p-5 { padding: var(--tf-spacing-5) !important; }
-.p-6 { padding: var(--tf-spacing-6) !important; }
-.p-8 { padding: var(--tf-spacing-8) !important; }
-
-.pt-0 { padding-top: var(--tf-spacing-0) !important; }
-.pt-1 { padding-top: var(--tf-spacing-1) !important; }
-.pt-2 { padding-top: var(--tf-spacing-2) !important; }
-.pt-3 { padding-top: var(--tf-spacing-3) !important; }
-.pt-4 { padding-top: var(--tf-spacing-4) !important; }
-.pt-5 { padding-top: var(--tf-spacing-5) !important; }
-.pt-6 { padding-top: var(--tf-spacing-6) !important; }
-.pt-8 { padding-top: var(--tf-spacing-8) !important; }
-
-.pb-0 { padding-bottom: var(--tf-spacing-0) !important; }
-.pb-1 { padding-bottom: var(--tf-spacing-1) !important; }
-.pb-2 { padding-bottom: var(--tf-spacing-2) !important; }
-.pb-3 { padding-bottom: var(--tf-spacing-3) !important; }
-.pb-4 { padding-bottom: var(--tf-spacing-4) !important; }
-.pb-5 { padding-bottom: var(--tf-spacing-5) !important; }
-.pb-6 { padding-bottom: var(--tf-spacing-6) !important; }
-.pb-8 { padding-bottom: var(--tf-spacing-8) !important; }
+/* Add your root styles here */
