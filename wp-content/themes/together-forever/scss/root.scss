@@ -172,6 +172,50 @@
 }
 
 /* ==========================================================================
+   Global Typography
+   ========================================================================== */
+
+/* Apply Avenir font to all text elements */
+* {
+  font-family: var(--tf-avenir);
+}
+
+/* Specific text elements */
+body,
+html,
+p,
+h1, h2, h3, h4, h5, h6,
+a,
+span,
+div,
+article,
+section,
+header,
+footer,
+main,
+nav,
+ul, ol, li,
+button,
+input,
+textarea,
+select,
+label,
+blockquote,
+cite,
+em,
+strong,
+small,
+code,
+pre,
+mark,
+del,
+ins,
+sub,
+sup {
+  font-family: var(--tf-avenir);
+}
+
+/* ==========================================================================
    Page Structure
    ========================================================================== */
 

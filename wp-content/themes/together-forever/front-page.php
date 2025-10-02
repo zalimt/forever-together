@@ -14,7 +14,7 @@ get_header(); ?>
 <main>
     <article>
         <section>
-            <h1 class="site-title">Together Forever</h1>
+            <h1>Together Forever</h1>
         </section>
     </article>
 </main>
