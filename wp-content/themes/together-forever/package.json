@@ -9,8 +9,10 @@
     "watch": "npm run watch:css",
     "watch:css": "sass scss/root.scss css/root.css --watch --style=expanded --source-map & sass scss/main.scss css/main.css --watch --style=expanded --source-map",
     "dev": "npm run watch:css",
+    "dev:live": "concurrently \"sass scss/root.scss css/root.css --watch --style=expanded --source-map\" \"sass scss/main.scss css/main.css --watch --style=expanded --source-map\"",
     "clean": "rm -rf css/*.css css/*.css.map",
-    "install-deps": "npm install"
+    "install-deps": "npm install",
+    "start": "npm run watch"
   },
   "keywords": [
     "wordpress",

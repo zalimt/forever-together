@@ -45,12 +45,20 @@ sass scss/main.scss css/main.css --style=compressed --source-map
 ### 3. Watch for Changes (Development)
 
 ```bash
-# Watch and auto-compile on changes
+# Watch and auto-compile on changes (RECOMMENDED FOR DEVELOPMENT)
 npm run watch
 
 # Or use the dev command
 npm run dev
+
+# Or use the start command
+npm start
+
+# For better terminal output (if you have concurrently installed)
+npm run dev:live
 ```
+
+**🚀 LIVE DEVELOPMENT**: The watch mode is now running! Any changes you make to SCSS files will automatically compile to CSS and be visible on your website immediately.
 
 ## 📝 SCSS Files Explained
 
@@ -104,20 +112,33 @@ The theme uses CSS custom properties for consistent styling:
 
 ## 🎯 Development Workflow
 
-### 1. Make Changes
+### 1. Start Live Development
+```bash
+# Start the watch mode (run this once)
+npm run watch
+```
+
+### 2. Make Changes
 Edit SCSS files in the `scss/` directory:
 - `root.scss` for variables and base styles
 - `main.scss` for component styles
 
-### 2. Compile
+### 3. See Changes Instantly
+- Changes are automatically compiled to CSS
+- Refresh your website to see the changes
+- No need to manually compile!
+
+### 4. Production Build
 ```bash
-npm run watch  # For development (auto-compile)
-# or
-npm run build  # For production build
+npm run build  # For production build (minified)
 ```
 
-### 3. Test
-The compiled CSS files are automatically enqueued by WordPress.
+## 🚀 Live Development Features
+
+- **Auto-compilation**: Changes compile instantly
+- **Source maps**: Debug SCSS directly in browser dev tools
+- **Expanded CSS**: Readable CSS output for development
+- **Hot reload**: Just refresh your browser to see changes
 
 ## 📱 Responsive Design
 
