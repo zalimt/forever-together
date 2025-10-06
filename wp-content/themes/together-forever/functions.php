@@ -70,6 +70,10 @@ add_action('wp_enqueue_scripts', 'together_forever_enqueue_styles');
 function together_forever_register_menus() {
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'together-forever'),
+        'footer_menu_1' => __('Footer Menu 1 - About Us', 'together-forever'),
+        'footer_menu_2' => __('Footer Menu 2 - In Need of Help', 'together-forever'),
+        'footer_menu_3' => __('Footer Menu 3 - News', 'together-forever'),
+        'footer_menu_4' => __('Footer Menu 4 - Make a Donation', 'together-forever'),
     ));
 }
 add_action('init', 'together_forever_register_menus');
