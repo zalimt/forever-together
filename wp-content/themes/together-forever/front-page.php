@@ -62,6 +62,13 @@ get_header(); ?>
                 
                 if ($kids_cards) {
                     foreach ($kids_cards as $card) {
+                        $status = $card['status'];
+                        
+                        // Only show cards with "In Need of Help" status on front page
+                        if ($status !== 'In Need of Help') {
+                            continue;
+                        }
+                        
                         $kid_image = $card['kid_card_image'];
                         $collected_amount = $card['collected_amount'];
                         $required_amount = $card['required_amount'];

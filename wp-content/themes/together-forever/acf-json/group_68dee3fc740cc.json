@@ -208,6 +208,37 @@
                     "placeholder": "",
                     "new_lines": "",
                     "parent_repeater": "field_68dee3fc81bb6"
+                },
+                {
+                    "key": "field_68e32defd6959",
+                    "label": "Status",
+                    "name": "status",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "In Need of Help": "In Need of Help",
+                        "Awaiting Treatment": "Awaiting Treatment",
+                        "We Helped": "We Helped"
+                    },
+                    "default_value": "In Need of Help",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_68dee3fc81bb6"
                 }
             ]
         }
@@ -230,5 +261,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1759438370
+    "modified": 1759718949
 }
