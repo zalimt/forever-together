@@ -62,6 +62,14 @@ function together_forever_enqueue_styles() {
         );
     }
     
+    // Enqueue Font Awesome for social media icons
+    wp_enqueue_style(
+        'font-awesome',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+        array(),
+        '6.5.1'
+    );
+    
     // Fallback: Enqueue original child theme stylesheet if compiled CSS doesn't exist
     if (!file_exists(get_stylesheet_directory() . '/css/root.css') || !file_exists(get_stylesheet_directory() . '/css/main.css')) {
         wp_enqueue_style(
