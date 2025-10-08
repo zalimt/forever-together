@@ -52,6 +52,16 @@ function together_forever_enqueue_styles() {
         $theme_version
     );
     
+    // Enqueue about page styles if on about page
+    if (is_page_template('about.php')) {
+        wp_enqueue_style(
+            'together-forever-about',
+            get_stylesheet_directory_uri() . '/css/about.css',
+            array('together-forever-main'),
+            $theme_version
+        );
+    }
+    
     // Fallback: Enqueue original child theme stylesheet if compiled CSS doesn't exist
     if (!file_exists(get_stylesheet_directory() . '/css/root.css') || !file_exists(get_stylesheet_directory() . '/css/main.css')) {
         wp_enqueue_style(
