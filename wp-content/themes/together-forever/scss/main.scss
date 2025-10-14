@@ -11,6 +11,12 @@
 // Import root styles first
 @import 'root';
 
+// Import blog/news/events styles
+@import 'blog';
+
+// Import single post styles
+@import 'single';
+
 /* ==========================================================================
    CSS Reset & Normalize
    ========================================================================== */

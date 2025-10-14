@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "row",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -49,6 +49,28 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
+                    "parent_repeater": "field_68dee3fc81bb6"
+                },
+                {
+                    "key": "field_68ec75c36cc45",
+                    "label": "Kids Bio",
+                    "name": "kids_bio",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
                     "parent_repeater": "field_68dee3fc81bb6"
                 },
                 {
@@ -261,5 +283,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1759718949
+    "display_title": "",
+    "modified": 1760327221
 }
