@@ -63,8 +63,8 @@ get_header(); ?>
                                     $has_cards = true;
                                     
                                     $kid_image = $card['kid_card_image'];
-                                    $collected_amount = $card['collected_amount'];
-                                    $required_amount = $card['required_amount'];
+                                    $collected_amount = floatval($card['collected_amount']);
+                                    $required_amount = floatval($card['required_amount']);
                                     $kid_name = $card['kid_name'];
                                     $kid_age = $card['kid_age'];
                                     $kid_diagnosis = $card['kid_diagnosis'];
@@ -172,8 +172,8 @@ get_header(); ?>
                                     $has_cards = true;
                                     
                                     $kid_image = $card['kid_card_image'];
-                                    $collected_amount = $card['collected_amount'];
-                                    $required_amount = $card['required_amount'];
+                                    $collected_amount = floatval($card['collected_amount']);
+                                    $required_amount = floatval($card['required_amount']);
                                     $kid_name = $card['kid_name'];
                                     $kid_age = $card['kid_age'];
                                     $kid_diagnosis = $card['kid_diagnosis'];
@@ -281,8 +281,8 @@ get_header(); ?>
                                     $has_cards = true;
                                     
                                     $kid_image = $card['kid_card_image'];
-                                    $collected_amount = $card['collected_amount'];
-                                    $required_amount = $card['required_amount'];
+                                    $collected_amount = floatval($card['collected_amount']);
+                                    $required_amount = floatval($card['required_amount']);
                                     $kid_name = $card['kid_name'];
                                     $kid_age = $card['kid_age'];
                                     $kid_diagnosis = $card['kid_diagnosis'];
@@ -367,105 +367,6 @@ get_header(); ?>
         </section>
     </article>
 </main>
-
-<style>
-/* Beneficiaries Page Styles */
-/* Header section styles are now in main.scss as .our-beneficiaries-hero */
-
-/* Tabs Section */
-.beneficiaries-tabs {
-    padding: 60px 0;
-    background: #f8f9fa;
-}
-
-.tabs-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.tabs-navigation {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-    gap: 10px;
-}
-
-.tabs-content {
-    /* Background and padding are handled by kids-section */
-}
-
-.tab-panel {
-    display: none;
-}
-
-.tab-panel.active {
-    display: block;
-}
-
-.tab-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.tab-title {
-    font-family: var(--tf-avenir);
-    font-weight: var(--tf-fw-700);
-    font-size: 2.5rem;
-    color: var(--tf-purple);
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.tab-description {
-    color: var(--tf-gray);
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 150%;
-    margin-bottom: 16px;
-}
-
-/* Kids grid styles are inherited from the theme's main SCSS */
-
-.placeholder-message {
-    width: 100%;
-    text-align: center;
-    padding: 60px 20px;
-    background: #f8f9fa;
-    border-radius: 10px;
-    border: 2px dashed #dee2e6;
-}
-
-.placeholder-message p {
-    font-size: 1.1rem;
-    color: #666;
-    margin: 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .tabs-navigation {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .tab-title {
-        font-size: 2rem;
-    }
-    
-    .tab-description {
-        font-size: 1rem;
-    }
-    
-    /* Kids grid responsive styles are inherited from the theme's main SCSS */
-}
-
-@media (max-width: 480px) {
-    .tab-description {
-        font-size: 0.9rem;
-    }
-}
-</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

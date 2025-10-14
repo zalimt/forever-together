@@ -70,8 +70,8 @@ get_header(); ?>
                         }
                         
                         $kid_image = $card['kid_card_image'];
-                        $collected_amount = $card['collected_amount'];
-                        $required_amount = $card['required_amount'];
+                        $collected_amount = floatval($card['collected_amount']);
+                        $required_amount = floatval($card['required_amount']);
                         $kid_name = $card['kid_name'];
                         $kid_age = $card['kid_age'];
                         $kid_diagnosis = $card['kid_diagnosis'];
