@@ -45,7 +45,6 @@ get_header(); ?>
                             <p class="tab-description">These children urgently need your support to receive life-saving treatment.</p>
                         </div>
                         <div class="kids-section">
-                            <section>
                                 <div class="kids-grid">
                             <?php
                             // Query Kids posts with "In Need of Help" category
@@ -156,7 +155,6 @@ get_header(); ?>
                             }
                             ?>
                                 </div>
-                            </section>
                         </div>
                     </div>
                     
@@ -167,7 +165,6 @@ get_header(); ?>
                             <p class="tab-description">These children have raised sufficient funds and are currently awaiting or undergoing treatment.</p>
                         </div>
                         <div class="kids-section">
-                            <section>
                                 <div class="kids-grid">
                             <?php
                             // Query Kids posts with "Awaiting Treatment" category
@@ -278,7 +275,6 @@ get_header(); ?>
                             }
                             ?>
                                 </div>
-                            </section>
                         </div>
                     </div>
                     
@@ -289,7 +285,6 @@ get_header(); ?>
                             <p class="tab-description">These are the children who have successfully completed their treatment thanks to your generous donations.</p>
                         </div>
                         <div class="kids-section">
-                            <section>
                                 <div class="kids-grid">
                             <?php
                             // Query Kids posts with "We Helped" category
@@ -400,7 +395,6 @@ get_header(); ?>
                             }
                             ?>
                                 </div>
-                            </section>
                         </div>
                     </div>
                 </div>
