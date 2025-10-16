@@ -461,3 +461,187 @@ function together_forever_svg_media_thumbnails($response, $attachment, $meta) {
     return $response;
 }
 add_filter('wp_prepare_attachment_for_js', 'together_forever_svg_media_thumbnails', 10, 3);
+
+/**
+ * Register Custom Post Type: Kids
+ * 
+ * This function registers a custom post type for managing kids' profiles
+ */
+function together_forever_register_kids_post_type() {
+    $labels = array(
+        'name'                  => _x('Kids', 'Post Type General Name', 'together-forever'),
+        'singular_name'         => _x('Kid', 'Post Type Singular Name', 'together-forever'),
+        'menu_name'             => __('Kids', 'together-forever'),
+        'name_admin_bar'        => __('Kid', 'together-forever'),
+        'archives'              => __('Kid Archives', 'together-forever'),
+        'attributes'            => __('Kid Attributes', 'together-forever'),
+        'parent_item_colon'     => __('Parent Kid:', 'together-forever'),
+        'all_items'             => __('All Kids', 'together-forever'),
+        'add_new_item'          => __('Add New Kid', 'together-forever'),
+        'add_new'               => __('Add New', 'together-forever'),
+        'new_item'              => __('New Kid', 'together-forever'),
+        'edit_item'             => __('Edit Kid', 'together-forever'),
+        'update_item'           => __('Update Kid', 'together-forever'),
+        'view_item'             => __('View Kid', 'together-forever'),
+        'view_items'            => __('View Kids', 'together-forever'),
+        'search_items'          => __('Search Kid', 'together-forever'),
+        'not_found'             => __('Not found', 'together-forever'),
+        'not_found_in_trash'    => __('Not found in Trash', 'together-forever'),
+        'featured_image'        => __('Kid Photo', 'together-forever'),
+        'set_featured_image'    => __('Set kid photo', 'together-forever'),
+        'remove_featured_image' => __('Remove kid photo', 'together-forever'),
+        'use_featured_image'    => __('Use as kid photo', 'together-forever'),
+        'insert_into_item'      => __('Insert into kid', 'together-forever'),
+        'uploaded_to_this_item' => __('Uploaded to this kid', 'together-forever'),
+        'items_list'            => __('Kids list', 'together-forever'),
+        'items_list_navigation' => __('Kids list navigation', 'together-forever'),
+        'filter_items_list'     => __('Filter kids list', 'together-forever'),
+    );
+    
+    $args = array(
+        'label'                 => __('Kids', 'together-forever'),
+        'description'           => __('Kids profiles and information', 'together-forever'),
+        'labels'                => $labels,
+        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+        'taxonomies'            => array('kid_category', 'kid_tag'),
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 5,
+        'menu_icon'             => 'dashicons-groups',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => true,
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'post',
+        'show_in_rest'          => true,
+        'rest_base'             => 'kids',
+        'rest_controller_class' => 'WP_REST_Posts_Controller',
+        'rewrite'               => array(
+            'slug'                  => 'kids',
+            'with_front'            => false,
+            'pages'                 => true,
+            'feeds'                 => true,
+        ),
+    );
+    
+    register_post_type('kids', $args);
+}
+add_action('init', 'together_forever_register_kids_post_type', 0);
+
+/**
+ * Register Custom Taxonomy: Kid Categories
+ * 
+ * This function registers a custom taxonomy for categorizing kids
+ * This is separate from regular post categories
+ */
+function together_forever_register_kid_categories() {
+    $labels = array(
+        'name'                       => _x('Kid Categories', 'Taxonomy General Name', 'together-forever'),
+        'singular_name'              => _x('Kid Category', 'Taxonomy Singular Name', 'together-forever'),
+        'menu_name'                  => __('Categories', 'together-forever'),
+        'all_items'                  => __('All Categories', 'together-forever'),
+        'parent_item'                => __('Parent Category', 'together-forever'),
+        'parent_item_colon'          => __('Parent Category:', 'together-forever'),
+        'new_item_name'              => __('New Category Name', 'together-forever'),
+        'add_new_item'               => __('Add New Category', 'together-forever'),
+        'edit_item'                  => __('Edit Category', 'together-forever'),
+        'update_item'                => __('Update Category', 'together-forever'),
+        'view_item'                  => __('View Category', 'together-forever'),
+        'separate_items_with_commas' => __('Separate categories with commas', 'together-forever'),
+        'add_or_remove_items'        => __('Add or remove categories', 'together-forever'),
+        'choose_from_most_used'      => __('Choose from the most used', 'together-forever'),
+        'popular_items'              => __('Popular Categories', 'together-forever'),
+        'search_items'               => __('Search Categories', 'together-forever'),
+        'not_found'                  => __('Not Found', 'together-forever'),
+        'no_terms'                   => __('No categories', 'together-forever'),
+        'items_list'                 => __('Categories list', 'together-forever'),
+        'items_list_navigation'      => __('Categories list navigation', 'together-forever'),
+    );
+    
+    $args = array(
+        'labels'                     => $labels,
+        'hierarchical'               => true,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'show_in_rest'               => true,
+        'rest_base'                  => 'kid-categories',
+        'rest_controller_class'      => 'WP_REST_Terms_Controller',
+        'rewrite'                    => array(
+            'slug'                       => 'kids/category',
+            'with_front'                 => false,
+            'hierarchical'               => true,
+        ),
+    );
+    
+    register_taxonomy('kid_category', array('kids'), $args);
+}
+add_action('init', 'together_forever_register_kid_categories', 0);
+
+/**
+ * Register Custom Taxonomy: Kid Tags
+ * 
+ * This function registers a custom taxonomy for tagging kids
+ * This is separate from regular post tags
+ */
+function together_forever_register_kid_tags() {
+    $labels = array(
+        'name'                       => _x('Kid Tags', 'Taxonomy General Name', 'together-forever'),
+        'singular_name'              => _x('Kid Tag', 'Taxonomy Singular Name', 'together-forever'),
+        'menu_name'                  => __('Tags', 'together-forever'),
+        'all_items'                  => __('All Tags', 'together-forever'),
+        'parent_item'                => __('Parent Tag', 'together-forever'),
+        'parent_item_colon'          => __('Parent Tag:', 'together-forever'),
+        'new_item_name'              => __('New Tag Name', 'together-forever'),
+        'add_new_item'               => __('Add New Tag', 'together-forever'),
+        'edit_item'                  => __('Edit Tag', 'together-forever'),
+        'update_item'                => __('Update Tag', 'together-forever'),
+        'view_item'                  => __('View Tag', 'together-forever'),
+        'separate_items_with_commas' => __('Separate tags with commas', 'together-forever'),
+        'add_or_remove_items'        => __('Add or remove tags', 'together-forever'),
+        'choose_from_most_used'      => __('Choose from the most used', 'together-forever'),
+        'popular_items'              => __('Popular Tags', 'together-forever'),
+        'search_items'               => __('Search Tags', 'together-forever'),
+        'not_found'                  => __('Not Found', 'together-forever'),
+        'no_terms'                   => __('No tags', 'together-forever'),
+        'items_list'                 => __('Tags list', 'together-forever'),
+        'items_list_navigation'      => __('Tags list navigation', 'together-forever'),
+    );
+    
+    $args = array(
+        'labels'                     => $labels,
+        'hierarchical'               => false,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'show_in_rest'               => true,
+        'rest_base'                  => 'kid-tags',
+        'rest_controller_class'      => 'WP_REST_Terms_Controller',
+        'rewrite'                    => array(
+            'slug'                       => 'kids/tag',
+            'with_front'                 => false,
+        ),
+    );
+    
+    register_taxonomy('kid_tag', array('kids'), $args);
+}
+add_action('init', 'together_forever_register_kid_tags', 0);
+
+/**
+ * Flush rewrite rules on theme activation
+ * 
+ * This ensures that the custom post type permalinks work correctly
+ */
+function together_forever_flush_rewrite_rules() {
+    together_forever_register_kids_post_type();
+    flush_rewrite_rules();
+}
+register_activation_hook(__FILE__, 'together_forever_flush_rewrite_rules');
