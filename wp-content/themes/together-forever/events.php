@@ -11,9 +11,9 @@ get_header(); ?>
     <?php while (have_posts()) : the_post(); ?>
         
         <article id="post-<?php the_ID(); ?>" <?php post_class('events-page-content'); ?>>
-            
-            <!-- Events Header Section -->
-            <section class="events-header-section">
+            <section class="events-page-section" style="max-width: 1400px; padding: 0 20px; margin: 0 auto;">
+                <!-- Events Header Section -->
+                <div class="events-header-section">
                 <div class="container">
                     <?php 
                     // Get ACF fields for events header
@@ -144,7 +144,6 @@ get_header(); ?>
                     <?php wp_reset_postdata(); ?>
                 </div>
             </section>
-            
         </article>
         
     <?php endwhile; ?>

@@ -21,6 +21,50 @@
 @import 'our-beneficiaries';
 
 /* ==========================================================================
+   Global Article/Section Structure
+   ========================================================================== */
+
+/* Standard article wrapper with section structure */
+article {
+    // Ensure articles take full width and have proper spacing
+    width: 100%;
+    
+    > section {
+        // Ensure sections within articles have consistent styling
+        width: 100%;
+        
+        // Override any conflicting container styles
+        &.container,
+        &[style*="max-width"] {
+            max-width: 1400px !important;
+            padding: 0 20px !important;
+            margin: 0 auto !important;
+        }
+    }
+}
+
+/* Responsive adjustments for the new structure */
+@media (max-width: 1440px) {
+    article > section[style*="max-width"] {
+        max-width: calc(100vw - 40px) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    article > section[style*="max-width"] {
+        padding: 0 15px !important;
+        max-width: calc(100vw - 30px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    article > section[style*="max-width"] {
+        padding: 0 10px !important;
+        max-width: calc(100vw - 20px) !important;
+    }
+}
+
+/* ==========================================================================
    CSS Reset & Normalize
    ========================================================================== */
 

@@ -76,12 +76,12 @@ get_header(); ?>
         <?php endif; ?>
         
         <!-- Post Content Section -->
-        <section class="single-post-content">
-            <div class="container">
+        <article id="post-<?php the_ID(); ?>" <?php post_class('single-post-content'); ?>>
+            <section class="single-post-section" style="max-width: 1400px; padding: 0 20px; margin: 0 auto;">
                 <div class="single-post-wrapper">
                     
                     <!-- Main Content -->
-                    <article id="post-<?php the_ID(); ?>" <?php post_class('single-post-main'); ?>>
+                    <div class="single-post-main">
                         
                         <!-- Post Date -->
                         <div class="post-meta-header">
@@ -106,7 +106,7 @@ get_header(); ?>
                             </div>
                         <?php endif; ?>
                         
-                    </article>
+                    </div>
                     
                     <!-- Sidebar -->
                     <aside class="single-post-sidebar">
@@ -179,8 +179,8 @@ get_header(); ?>
                     </aside>
                     
                 </div>
-            </div>
-        </section>
+            </section>
+        </article>
         
     <?php endwhile; ?>
 </main>

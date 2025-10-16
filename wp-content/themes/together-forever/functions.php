@@ -62,6 +62,16 @@ function together_forever_enqueue_styles() {
         );
     }
     
+    // Enqueue single kids styles if on single kids post
+    if (is_singular('kids')) {
+        wp_enqueue_style(
+            'together-forever-single-kids',
+            get_stylesheet_directory_uri() . '/css/single-kids.css',
+            array('together-forever-main'),
+            $theme_version
+        );
+    }
+    
     // Enqueue Font Awesome for social media icons
     wp_enqueue_style(
         'font-awesome',
@@ -642,6 +652,25 @@ add_action('init', 'together_forever_register_kid_tags', 0);
  */
 function together_forever_flush_rewrite_rules() {
     together_forever_register_kids_post_type();
+    together_forever_register_kid_categories();
+    together_forever_register_kid_tags();
     flush_rewrite_rules();
 }
 register_activation_hook(__FILE__, 'together_forever_flush_rewrite_rules');
+
+/**
+ * Flush rewrite rules when needed
+ * 
+ * This function can be called to refresh permalinks
+ */
+function together_forever_force_flush_rewrite_rules() {
+    // Check if we need to flush rewrite rules
+    $version = get_option('together_forever_rewrite_rules_version', '1.0');
+    $current_version = '1.1'; // Increment this when you need to flush rules
+    
+    if (version_compare($version, $current_version, '<')) {
+        flush_rewrite_rules();
+        update_option('together_forever_rewrite_rules_version', $current_version);
+    }
+}
+add_action('init', 'together_forever_force_flush_rewrite_rules', 99);

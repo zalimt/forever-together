@@ -25,12 +25,18 @@ sass scss/root.scss css/root.css --style=compressed --source-map
 echo "  → Compiling main.scss..."
 sass scss/main.scss css/main.css --style=compressed --source-map
 
+# Compile single-kids.scss to single-kids.css
+echo "  → Compiling single-kids.scss..."
+sass scss/single-kids.scss css/single-kids.css --style=compressed --source-map
+
 echo "✅ Build complete!"
 echo ""
 echo "📁 Generated files:"
 echo "  - css/root.css"
 echo "  - css/main.css"
+echo "  - css/single-kids.css"
 echo "  - css/root.css.map"
 echo "  - css/main.css.map"
+echo "  - css/single-kids.css.map"
 echo ""
 echo "🚀 Your theme is ready to use!"

@@ -8,8 +8,10 @@
 get_header(); ?>
 
 <main class="main">
-    <!-- Tabs Navigation -->
-    <section class="about-tabs-nav">
+    <article class="about-page-content">
+        <section class="about-page-section" style="max-width: 1400px; padding: 0 20px; margin: 0 auto;">
+            <!-- Tabs Navigation -->
+            <div class="about-tabs-nav">
         <div class="container">
             <div class="tabs-navigation">
                 <button class="btn btn-primary tab-button active" data-tab="history">
@@ -415,8 +417,9 @@ get_header(); ?>
                     </div>
                 </div>
             </section>
-        </div>
-    </div>
+            </div>
+        </section>
+    </article>
 </main>
 
 <script>

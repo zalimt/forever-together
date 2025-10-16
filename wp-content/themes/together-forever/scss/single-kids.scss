@@ -1,0 +1,635 @@
+/**
+ * Single Kids Post Styles
+ * 
+ * Styles for individual Kids post pages
+ */
+
+@import 'root';
+
+// ===========================
+// Hero Section
+// ===========================
+
+.single-kids-hero {
+    position: relative;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4rem;
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .hero-content {
+        text-align: center;
+        color: var(--tf-white);
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: var(--tf-white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateX(-5px);
+            }
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .single-kids-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+            @media (max-width: 768px) {
+                font-size: 2.5rem;
+            }
+        }
+
+        .single-kids-age {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 1rem;
+            backdrop-filter: blur(10px);
+
+            &.status-in-need-of-help {
+                background: rgba(231, 76, 60, 0.9);
+                color: var(--tf-white);
+            }
+
+            &.status-awaiting-treatment {
+                background: rgba(241, 196, 15, 0.9);
+                color: var(--tf-dark);
+            }
+
+            &.status-we-helped {
+                background: rgba(46, 204, 113, 0.9);
+                color: var(--tf-white);
+            }
+        }
+    }
+}
+
+.single-kids-header {
+    padding: 4rem 0 2rem;
+    background: linear-gradient(135deg, var(--tf-primary) 0%, var(--tf-secondary) 100%);
+    color: var(--tf-white);
+    margin-bottom: 4rem;
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .header-content {
+        text-align: center;
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: var(--tf-white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateX(-5px);
+            }
+        }
+
+        .single-kids-title-header {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+
+            @media (max-width: 768px) {
+                font-size: 2rem;
+            }
+        }
+
+        .single-kids-age {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 1rem;
+
+            &.status-in-need-of-help {
+                background: rgba(231, 76, 60, 0.95);
+            }
+
+            &.status-awaiting-treatment {
+                background: rgba(241, 196, 15, 0.95);
+                color: var(--tf-dark);
+            }
+
+            &.status-we-helped {
+                background: rgba(46, 204, 113, 0.95);
+            }
+        }
+    }
+}
+
+// ===========================
+// Progress Section
+// ===========================
+
+.single-kids-progress-section {
+    padding: 3rem 0;
+    background: var(--tf-light-bg);
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .progress-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .progress-card {
+        background: var(--tf-white);
+        border-radius: 16px;
+        padding: 3rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+
+        @media (max-width: 768px) {
+            padding: 2rem 1.5rem;
+        }
+
+        .progress-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--tf-primary);
+        }
+
+        .elephant-progress-large {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+
+            .elephant-progress-image {
+                width: 200px;
+                height: auto;
+
+                @media (max-width: 768px) {
+                    width: 150px;
+                }
+            }
+
+            .progress-percentage-large {
+                position: absolute;
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--tf-primary);
+            }
+        }
+
+        .amounts-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+
+            @media (max-width: 480px) {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .amount-box {
+                background: var(--tf-light-bg);
+                padding: 1.5rem;
+                border-radius: 12px;
+                text-align: center;
+
+                &.collected {
+                    border: 3px solid var(--tf-primary);
+                }
+
+                &.required {
+                    border: 3px solid var(--tf-secondary);
+                }
+
+                .amount-label {
+                    display: block;
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    color: var(--tf-text-secondary);
+                    margin-bottom: 0.5rem;
+                }
+
+                .amount-value {
+                    display: block;
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: var(--tf-dark);
+                }
+            }
+        }
+
+        .progress-bar-large {
+            width: 100%;
+            height: 20px;
+            background: var(--tf-light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, var(--tf-primary) 0%, var(--tf-secondary) 100%);
+                border-radius: 10px;
+                transition: width 0.5s ease;
+            }
+        }
+
+        .remaining-amount {
+            font-size: 1.1rem;
+            color: var(--tf-text-secondary);
+            margin-bottom: 2rem;
+
+            strong {
+                color: var(--tf-primary);
+                font-size: 1.3rem;
+            }
+        }
+
+        .goal-reached {
+            font-size: 1.2rem;
+            color: var(--tf-success);
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: 8px;
+
+            strong {
+                font-size: 1.4rem;
+            }
+        }
+
+        .donate-button-large {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}
+
+// ===========================
+// Content Section (now the article)
+// ===========================
+
+.single-kids-content {
+    padding: 4rem 0;
+
+    .single-kids-section {
+        // Max-width and padding are handled inline (1400px, 20px)
+    }
+
+    .single-kids-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .single-kids-main {
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--tf-primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--tf-primary);
+        }
+
+        .diagnosis-section {
+            background: var(--tf-light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+
+            .diagnosis-content {
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: var(--tf-text);
+            }
+        }
+
+        .story-section {
+            margin-bottom: 3rem;
+
+            .story-content {
+                font-size: 1.1rem;
+                line-height: 1.9;
+                color: var(--tf-text);
+
+                p {
+                    margin-bottom: 1.5rem;
+                }
+
+                strong {
+                    color: var(--tf-primary);
+                }
+            }
+        }
+
+        .kids-cta-section {
+            margin-top: 3rem;
+
+            .cta-card {
+                background: linear-gradient(135deg, var(--tf-primary) 0%, var(--tf-secondary) 100%);
+                color: var(--tf-white);
+                padding: 3rem;
+                border-radius: 16px;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+                @media (max-width: 768px) {
+                    padding: 2rem 1.5rem;
+                }
+
+                h3 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+
+                p {
+                    font-size: 1.1rem;
+                    line-height: 1.8;
+                    margin-bottom: 2rem;
+                    opacity: 0.95;
+                }
+
+                .btn {
+                    padding: 1rem 2.5rem;
+                    font-size: 1.1rem;
+
+                    &:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                    }
+                }
+            }
+        }
+    }
+
+    .single-kids-sidebar {
+        .sidebar-content {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--tf-dark);
+        }
+
+        .related-kids {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .related-kid-card {
+            background: var(--tf-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .related-kid-thumbnail {
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover img {
+                    transform: scale(1.05);
+                }
+            }
+
+            .related-kid-content {
+                padding: 1.5rem;
+
+                .related-kid-name {
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+
+                    a {
+                        color: var(--tf-dark);
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+
+                        &:hover {
+                            color: var(--tf-primary);
+                        }
+                    }
+                }
+
+                .related-kid-age {
+                    font-size: 0.95rem;
+                    color: var(--tf-text-secondary);
+                    margin-bottom: 1rem;
+                }
+
+                .related-kid-progress {
+                    margin-bottom: 1rem;
+
+                    .progress-info {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 0.85rem;
+                        margin-bottom: 0.5rem;
+
+                        .progress-label {
+                            font-weight: 600;
+                            color: var(--tf-primary);
+                        }
+
+                        .progress-amount {
+                            color: var(--tf-text-secondary);
+                        }
+                    }
+
+                    .progress-bar-small {
+                        width: 100%;
+                        height: 8px;
+                        background: var(--tf-light-bg);
+                        border-radius: 4px;
+                        overflow: hidden;
+
+                        .progress-fill {
+                            height: 100%;
+                            background: linear-gradient(90deg, var(--tf-primary) 0%, var(--tf-secondary) 100%);
+                            border-radius: 4px;
+                            transition: width 0.5s ease;
+                        }
+                    }
+                }
+
+                .learn-more-btn {
+                    display: inline-block;
+                    padding: 0.6rem 1.5rem;
+                    background: var(--tf-primary);
+                    color: var(--tf-white);
+                    text-decoration: none;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        background: var(--tf-secondary);
+                        transform: translateX(3px);
+                    }
+                }
+            }
+        }
+
+        .no-related-kids {
+            text-align: center;
+            padding: 2rem;
+            color: var(--tf-text-secondary);
+            font-style: italic;
+        }
+
+        .sidebar-cta {
+            background: var(--tf-light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+
+            h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+                color: var(--tf-dark);
+            }
+
+            p {
+                font-size: 0.95rem;
+                color: var(--tf-text-secondary);
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    }
+}
+
+// ===========================
+// Responsive Design
+// ===========================
+
+@media (max-width: 768px) {
+    .single-kids-hero {
+        min-height: 400px;
+        margin-bottom: 2rem;
+    }
+
+    .single-kids-progress-section {
+        padding: 2rem 0;
+    }
+
+    .single-kids-content {
+        padding: 2rem 0;
+
+        .single-kids-wrapper {
+            gap: 2rem;
+        }
+    }
+}
+

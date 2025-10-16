@@ -11,9 +11,9 @@ get_header(); ?>
     <?php while (have_posts()) : the_post(); ?>
         
         <article id="post-<?php the_ID(); ?>" <?php post_class('news-page-content'); ?>>
-            
-            <!-- News Header Section -->
-            <section class="news-header-section">
+            <section class="news-page-section" style="max-width: 1400px; padding: 0 20px; margin: 0 auto;">
+                <!-- News Header Section -->
+                <div class="news-header-section">
                 <div class="container">
                     <?php 
                     // Get ACF fields for news header
@@ -144,7 +144,6 @@ get_header(); ?>
                     <?php wp_reset_postdata(); ?>
                 </div>
             </section>
-            
         </article>
         
     <?php endwhile; ?>

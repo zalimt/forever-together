@@ -8,8 +8,10 @@
 get_header(); ?>
 
 <main>
-    <!-- Header Section -->
-    <article class="our-beneficiaries-hero">
+    <article class="our-beneficiaries-content">
+        <section class="our-beneficiaries-section" style="max-width: 1400px; padding: 0 20px; margin: 0 auto;">
+            <!-- Header Section -->
+            <div class="our-beneficiaries-hero">
         <section class="our-beneficiaries-banner">
             <div class="banner-content">
                 <h2 class="banner-message">
@@ -17,10 +19,10 @@ get_header(); ?>
                 </h2>
             </div>
         </section>
-    </article>
+            </div>
 
-    <!-- Tabs Section -->
-    <article class="beneficiaries-tabs">
+            <!-- Tabs Section -->
+            <div class="beneficiaries-tabs">
         <section class="tabs-section">
             <div class="tabs-container">
                 <div class="tabs-navigation">
@@ -46,30 +48,46 @@ get_header(); ?>
                             <section>
                                 <div class="kids-grid">
                             <?php
-                            // Get the Kids Cards ACF field from the front page
-                            $front_page_id = get_option('page_on_front');
-                            $kids_cards = get_field('kids_cards', $front_page_id);
+                            // Query Kids posts with "In Need of Help" category
+                            $kids_query = new WP_Query(array(
+                                'post_type' => 'kids',
+                                'posts_per_page' => -1,
+                                'tax_query' => array(
+                                    array(
+                                        'taxonomy' => 'kid_category',
+                                        'field' => 'name',
+                                        'terms' => 'In Need of Help',
+                                    ),
+                                ),
+                                'orderby' => 'date',
+                                'order' => 'DESC',
+                            ));
                             
-                            if ($kids_cards) {
-                                $has_cards = false;
-                                foreach ($kids_cards as $card) {
-                                    $status = $card['status'];
+                            if ($kids_query->have_posts()) {
+                                while ($kids_query->have_posts()) {
+                                    $kids_query->the_post();
                                     
-                                    // Only show cards with "In Need of Help" status in this tab
-                                    if ($status !== 'In Need of Help') {
-                                        continue;
+                                    // Get post data
+                                    $kid_bio = get_the_content();
+                                    
+                                    // Get ACF fields
+                                    $kid_name = get_field('kids_card_name');
+                                    $kid_image = get_field('kid_card_image');
+                                    // Fallback to featured image if ACF image not set
+                                    if (!$kid_image && has_post_thumbnail()) {
+                                        $kid_image = array(
+                                            'url' => get_the_post_thumbnail_url(get_the_ID(), 'full')
+                                        );
                                     }
                                     
-                                    $has_cards = true;
+                                    $collected_amount = floatval(get_field('collected_amount'));
+                                    $required_amount = floatval(get_field('required_amount'));
+                                    $kid_age = get_field('kid_age');
+                                    $kid_diagnosis = get_field('kid_diagnosis');
+                                    $donate_btn_link = get_field('donate_btn_link');
                                     
-                                    $kid_image = $card['kid_card_image'];
-                                    $collected_amount = floatval($card['collected_amount']);
-                                    $required_amount = floatval($card['required_amount']);
-                                    $kid_name = $card['kid_name'];
-                                    $kid_age = $card['kid_age'];
-                                    $kid_diagnosis = $card['kid_diagnosis'];
-                                    $donate_btn_link = $card['donate_btn_link'];
-                                    $more_about_link = $card['more_about_a_child_link'];
+                                    // Always use post permalink for "More About" link
+                                    $more_about_link = get_permalink();
                                     
                                     // Calculate progress percentage
                                     $progress_percentage = $required_amount > 0 ? ($collected_amount / $required_amount) * 100 : 0;
@@ -132,12 +150,9 @@ get_header(); ?>
                                     
                                     <?php
                                 }
-                                
-                                if (!$has_cards) {
-                                    echo '<div class="placeholder-message"><p>No children in need of help at this time.</p></div>';
-                                }
+                                wp_reset_postdata();
                             } else {
-                                echo '<div class="placeholder-message"><p>No kids cards data available. Please add content through ACF.</p></div>';
+                                echo '<div class="placeholder-message"><p>No children in need of help at this time.</p></div>';
                             }
                             ?>
                                 </div>
@@ -155,30 +170,46 @@ get_header(); ?>
                             <section>
                                 <div class="kids-grid">
                             <?php
-                            // Get the Kids Cards ACF field from the front page
-                            $front_page_id = get_option('page_on_front');
-                            $kids_cards = get_field('kids_cards', $front_page_id);
+                            // Query Kids posts with "Awaiting Treatment" category
+                            $kids_query = new WP_Query(array(
+                                'post_type' => 'kids',
+                                'posts_per_page' => -1,
+                                'tax_query' => array(
+                                    array(
+                                        'taxonomy' => 'kid_category',
+                                        'field' => 'name',
+                                        'terms' => 'Awaiting Treatment',
+                                    ),
+                                ),
+                                'orderby' => 'date',
+                                'order' => 'DESC',
+                            ));
                             
-                            if ($kids_cards) {
-                                $has_cards = false;
-                                foreach ($kids_cards as $card) {
-                                    $status = $card['status'];
+                            if ($kids_query->have_posts()) {
+                                while ($kids_query->have_posts()) {
+                                    $kids_query->the_post();
                                     
-                                    // Only show cards with "Awaiting Treatment" status in this tab
-                                    if ($status !== 'Awaiting Treatment') {
-                                        continue;
+                                    // Get post data
+                                    $kid_bio = get_the_content();
+                                    
+                                    // Get ACF fields
+                                    $kid_name = get_field('kids_card_name');
+                                    $kid_image = get_field('kid_card_image');
+                                    // Fallback to featured image if ACF image not set
+                                    if (!$kid_image && has_post_thumbnail()) {
+                                        $kid_image = array(
+                                            'url' => get_the_post_thumbnail_url(get_the_ID(), 'full')
+                                        );
                                     }
                                     
-                                    $has_cards = true;
+                                    $collected_amount = floatval(get_field('collected_amount'));
+                                    $required_amount = floatval(get_field('required_amount'));
+                                    $kid_age = get_field('kid_age');
+                                    $kid_diagnosis = get_field('kid_diagnosis');
+                                    $donate_btn_link = get_field('donate_btn_link');
                                     
-                                    $kid_image = $card['kid_card_image'];
-                                    $collected_amount = floatval($card['collected_amount']);
-                                    $required_amount = floatval($card['required_amount']);
-                                    $kid_name = $card['kid_name'];
-                                    $kid_age = $card['kid_age'];
-                                    $kid_diagnosis = $card['kid_diagnosis'];
-                                    $donate_btn_link = $card['donate_btn_link'];
-                                    $more_about_link = $card['more_about_a_child_link'];
+                                    // Always use post permalink for "More About" link
+                                    $more_about_link = get_permalink();
                                     
                                     // Calculate progress percentage
                                     $progress_percentage = $required_amount > 0 ? ($collected_amount / $required_amount) * 100 : 0;
@@ -241,12 +272,9 @@ get_header(); ?>
                                     
                                     <?php
                                 }
-                                
-                                if (!$has_cards) {
-                                    echo '<div class="placeholder-message"><p>No children awaiting treatment at this time.</p></div>';
-                                }
+                                wp_reset_postdata();
                             } else {
-                                echo '<div class="placeholder-message"><p>No kids cards data available. Please add content through ACF.</p></div>';
+                                echo '<div class="placeholder-message"><p>No children awaiting treatment at this time.</p></div>';
                             }
                             ?>
                                 </div>
@@ -264,30 +292,46 @@ get_header(); ?>
                             <section>
                                 <div class="kids-grid">
                             <?php
-                            // Get the Kids Cards ACF field from the front page
-                            $front_page_id = get_option('page_on_front');
-                            $kids_cards = get_field('kids_cards', $front_page_id);
+                            // Query Kids posts with "We Helped" category
+                            $kids_query = new WP_Query(array(
+                                'post_type' => 'kids',
+                                'posts_per_page' => -1,
+                                'tax_query' => array(
+                                    array(
+                                        'taxonomy' => 'kid_category',
+                                        'field' => 'name',
+                                        'terms' => 'We Helped',
+                                    ),
+                                ),
+                                'orderby' => 'date',
+                                'order' => 'DESC',
+                            ));
                             
-                            if ($kids_cards) {
-                                $has_cards = false;
-                                foreach ($kids_cards as $card) {
-                                    $status = $card['status'];
+                            if ($kids_query->have_posts()) {
+                                while ($kids_query->have_posts()) {
+                                    $kids_query->the_post();
                                     
-                                    // Only show cards with "We Helped" status in this tab
-                                    if ($status !== 'We Helped') {
-                                        continue;
+                                    // Get post data
+                                    $kid_bio = get_the_content();
+                                    
+                                    // Get ACF fields
+                                    $kid_name = get_field('kids_card_name');
+                                    $kid_image = get_field('kid_card_image');
+                                    // Fallback to featured image if ACF image not set
+                                    if (!$kid_image && has_post_thumbnail()) {
+                                        $kid_image = array(
+                                            'url' => get_the_post_thumbnail_url(get_the_ID(), 'full')
+                                        );
                                     }
                                     
-                                    $has_cards = true;
+                                    $collected_amount = floatval(get_field('collected_amount'));
+                                    $required_amount = floatval(get_field('required_amount'));
+                                    $kid_age = get_field('kid_age');
+                                    $kid_diagnosis = get_field('kid_diagnosis');
+                                    $donate_btn_link = get_field('donate_btn_link');
                                     
-                                    $kid_image = $card['kid_card_image'];
-                                    $collected_amount = floatval($card['collected_amount']);
-                                    $required_amount = floatval($card['required_amount']);
-                                    $kid_name = $card['kid_name'];
-                                    $kid_age = $card['kid_age'];
-                                    $kid_diagnosis = $card['kid_diagnosis'];
-                                    $donate_btn_link = $card['donate_btn_link'];
-                                    $more_about_link = $card['more_about_a_child_link'];
+                                    // Always use post permalink for "More About" link
+                                    $more_about_link = get_permalink();
                                     
                                     // Calculate progress percentage
                                     $progress_percentage = $required_amount > 0 ? ($collected_amount / $required_amount) * 100 : 0;
@@ -350,12 +394,9 @@ get_header(); ?>
                                     
                                     <?php
                                 }
-                                
-                                if (!$has_cards) {
-                                    echo '<div class="placeholder-message"><p>No children we helped to display at this time.</p></div>';
-                                }
+                                wp_reset_postdata();
                             } else {
-                                echo '<div class="placeholder-message"><p>No kids cards data available. Please add content through ACF.</p></div>';
+                                echo '<div class="placeholder-message"><p>No children we helped to display at this time.</p></div>';
                             }
                             ?>
                                 </div>
