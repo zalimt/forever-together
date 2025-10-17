@@ -1,86 +1,155 @@
 <?php
 /**
- * Debug page to check certificate creation
- * Access: http://forever-together.local/debug-certificates.php
+ * Template Name: Debug Certificates
+ * 
+ * WordPress-based debug page for certificates
  */
 
-// Load WordPress
-require_once('../../../wp-load.php');
+get_header();
 
 // Check if user is admin
-if (!current_user_can('manage_options')) {
-    die('Access denied. Admin only.');
+if (!current_user_can('administrator')) {
+    echo '<div class="container"><h1>Access Denied</h1><p>Admin access required.</p></div>';
+    get_footer();
+    exit;
 }
 
 global $wpdb;
 $table_name = $wpdb->prefix . 'tf_certificates';
 
-echo "<h1>Certificate Debug Page</h1>";
-
-// Check if table exists
-$table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'");
-if (!$table_exists) {
-    echo "<p style='color: red;'>❌ Table $table_name does not exist!</p>";
-    echo "<p>Run this command to create it:</p>";
-    echo "<code>tf_create_certificates_table();</code>";
-} else {
-    echo "<p style='color: green;'>✅ Table $table_name exists</p>";
-}
-
-// Get recent certificates
-$certificates = $wpdb->get_results("SELECT * FROM $table_name ORDER BY created_at DESC LIMIT 10");
-
-echo "<h2>Recent Certificates (Last 10)</h2>";
-if (empty($certificates)) {
-    echo "<p>No certificates found.</p>";
-} else {
-    echo "<table border='1' style='border-collapse: collapse; width: 100%;'>";
-    echo "<tr><th>ID</th><th>Code</th><th>Beneficiary</th><th>Giver</th><th>Email</th><th>Amount</th><th>Status</th><th>Created</th></tr>";
-    foreach ($certificates as $cert) {
-        $status_color = $cert->is_active ? 'green' : 'red';
-        $status_text = $cert->is_active ? 'Active' : 'Used';
-        echo "<tr>";
-        echo "<td>{$cert->id}</td>";
-        echo "<td><code>{$cert->certificate_code}</code></td>";
-        echo "<td>{$cert->beneficiary_name}</td>";
-        echo "<td>{$cert->giver_name}</td>";
-        echo "<td>{$cert->recipient_email}</td>";
-        echo "<td>{$cert->amount}€</td>";
-        echo "<td style='color: $status_color;'>{$status_text}</td>";
-        echo "<td>{$cert->created_at}</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-}
-
-// Check email settings
-echo "<h2>Email Configuration</h2>";
-$smtp_configured = get_option('tf_stripe_publishable_key');
-if ($smtp_configured) {
-    echo "<p style='color: green;'>✅ Stripe keys configured</p>";
-} else {
-    echo "<p style='color: red;'>❌ Stripe keys not configured</p>";
-}
-
-// Test email function
-echo "<h2>Test Email Function</h2>";
-echo "<form method='post'>";
-echo "<input type='email' name='test_email' placeholder='test@example.com' required>";
-echo "<input type='submit' name='send_test_email' value='Send Test Email'>";
-echo "</form>";
-
-if (isset($_POST['send_test_email'])) {
-    $test_email = sanitize_email($_POST['test_email']);
-    $result = wp_mail($test_email, 'Test Email', 'This is a test email from WordPress.');
-    if ($result) {
-        echo "<p style='color: green;'>✅ Test email sent successfully!</p>";
-    } else {
-        echo "<p style='color: red;'>❌ Test email failed. Check SMTP configuration.</p>";
-    }
-}
-
-// Check webhook endpoint
-echo "<h2>Webhook Endpoint</h2>";
-echo "<p>Webhook URL: <code>http://forever-together.local/wp-json/tf/v1/stripe-webhook</code></p>";
-echo "<p>Test webhook: <a href='http://forever-together.local/wp-json/tf/v1/stripe-webhook' target='_blank'>Click here</a></p>";
 ?>
+<div class="container" style="max-width: 1200px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h1>🔍 Certificate System Debug</h1>
+    
+    <h2>1. Database Connection Test</h2>
+    <p><strong>Host:</strong> <?php echo DB_HOST; ?></p>
+    <p><strong>Database:</strong> <?php echo DB_NAME; ?></p>
+    <p><strong>Table:</strong> <?php echo $table_name; ?></p>
+    
+    <h2>2. Table Existence Check</h2>
+    <?php
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name;
+    echo "<p>Table exists: " . ($table_exists ? "✅ YES" : "❌ NO") . "</p>";
+    
+    if ($table_exists) {
+        echo "<h2>3. Table Structure</h2>";
+        $columns = $wpdb->get_results("DESCRIBE $table_name");
+        echo "<table border='1' style='border-collapse: collapse; width: 100%;'>";
+        echo "<tr><th>Field</th><th>Type</th><th>Null</th><th>Key</th><th>Default</th></tr>";
+        foreach ($columns as $col) {
+            echo "<tr><td>{$col->Field}</td><td>{$col->Type}</td><td>{$col->Null}</td><td>{$col->Key}</td><td>{$col->Default}</td></tr>";
+        }
+        echo "</table>";
+        
+        echo "<h2>4. Current Certificate Count</h2>";
+        $count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
+        echo "<p><strong>Total certificates:</strong> $count</p>";
+        
+        if ($count > 0) {
+            echo "<h2>5. All Certificates</h2>";
+            $certificates = $wpdb->get_results("SELECT * FROM $table_name ORDER BY id DESC");
+            echo "<table border='1' style='border-collapse: collapse; width: 100%;'>";
+            echo "<tr><th>ID</th><th>Code</th><th>Amount</th><th>Created</th><th>Active</th><th>Session ID</th></tr>";
+            
+            foreach ($certificates as $cert) {
+                echo "<tr>";
+                echo "<td>{$cert->id}</td>";
+                echo "<td><code>{$cert->certificate_code}</code></td>";
+                echo "<td>€{$cert->amount}</td>";
+                echo "<td>{$cert->created_at}</td>";
+                echo "<td>" . ($cert->is_active ? "✅" : "❌") . "</td>";
+                echo "<td><small>" . substr($cert->stripe_session_id, 0, 20) . "...</small></td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        }
+        
+        echo "<h2>6. Test Database Insert</h2>";
+        $test_data = array(
+            'certificate_code' => 'TEST-' . time(),
+            'beneficiary_name' => 'Test Beneficiary',
+            'beneficiary_from' => 'Test From',
+            'giver_name' => 'Test Giver',
+            'recipient_email' => 'test@example.com',
+            'amount' => 50.00,
+            'payment_intent_id' => 'test_payment',
+            'stripe_session_id' => 'test_session',
+            'is_active' => 1
+        );
+        
+        $result = $wpdb->insert($table_name, $test_data);
+        
+        if ($result) {
+            echo "<p style='color: green;'>✅ <strong>Database insert works!</strong> Test certificate created.</p>";
+            
+            // Clean up test certificate
+            $wpdb->delete($table_name, array('certificate_code' => $test_data['certificate_code']));
+            echo "<p>Test certificate cleaned up.</p>";
+        } else {
+            echo "<p style='color: red;'>❌ <strong>Database insert FAILED:</strong> " . $wpdb->last_error . "</p>";
+        }
+        
+    } else {
+        echo "<h2>3. Creating Table</h2>";
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+            id int(11) NOT NULL AUTO_INCREMENT,
+            certificate_code varchar(16) NOT NULL,
+            beneficiary_name varchar(255) NOT NULL,
+            beneficiary_from varchar(255) DEFAULT '',
+            giver_name varchar(255) NOT NULL,
+            recipient_email varchar(255) NOT NULL,
+            amount decimal(10,2) NOT NULL,
+            payment_intent_id varchar(255) DEFAULT '',
+            stripe_session_id varchar(255) DEFAULT '',
+            is_active tinyint(1) DEFAULT 1,
+            activated_at datetime DEFAULT NULL,
+            activated_by_email varchar(255) DEFAULT '',
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY certificate_code (certificate_code)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+        
+        $result = $wpdb->query($sql);
+        
+        if ($result !== false) {
+            echo "<p style='color: green;'>✅ <strong>Table created successfully!</strong></p>";
+        } else {
+            echo "<p style='color: red;'>❌ <strong>Table creation FAILED:</strong> " . $wpdb->last_error . "</p>";
+        }
+    }
+    
+    echo "<h2>7. WordPress Database Status</h2>";
+    // Check database connection without accessing undefined property
+    $db_connected = true;
+    if (isset($wpdb->db_connect_error) && $wpdb->db_connect_error) {
+        $db_connected = false;
+    }
+    echo "<p><strong>Database connection:</strong> " . ($db_connected ? "✅ OK" : "❌ FAILED") . "</p>";
+    echo "<p><strong>Last query:</strong> " . $wpdb->last_query . "</p>";
+    echo "<p><strong>Last error:</strong> " . ($wpdb->last_error ?: "None") . "</p>";
+    
+    echo "<h2>8. Stripe Configuration</h2>";
+    $stripe_keys = [
+        'tf_stripe_secret_key' => get_option('tf_stripe_secret_key'),
+        'tf_stripe_publishable_key' => get_option('tf_stripe_publishable_key'),
+        'tf_stripe_webhook_secret' => get_option('tf_stripe_webhook_secret')
+    ];
+    
+    foreach ($stripe_keys as $key => $value) {
+        $status = !empty($value) ? "✅ Set" : "❌ Missing";
+        echo "<p><strong>$key:</strong> $status</p>";
+    }
+    
+    echo "<h2>9. Processing Status</h2>";
+    $success_page_content = file_get_contents(get_stylesheet_directory() . '/certificate-success.php');
+    if (strpos($success_page_content, 'if (false && isset($_GET[\'session_id\']))') !== false) {
+        echo "<p>❌ <strong>Automatic processing is DISABLED</strong></p>";
+    } else {
+        echo "<p>✅ <strong>Automatic processing is ENABLED</strong></p>";
+    }
+    
+    ?>
+</div>
+
+<?php get_footer(); ?>
