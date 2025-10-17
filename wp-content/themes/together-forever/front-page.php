@@ -51,7 +51,7 @@ get_header(); ?>
 
         <!-- CTA Section -->
         <section class="cta-section">
-            <a href="#certificate" class="btn btn-gradient">Gift a Certificate</a>
+            <a href="/certificate" class="btn btn-gradient">Gift a Certificate</a>
         </section>
     </article>
     <article class="kids-section">
