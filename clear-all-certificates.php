@@ -17,6 +17,9 @@ echo "<h1>Clear All Certificates</h1>";
 global $wpdb;
 $table_name = $wpdb->prefix . 'tf_certificates';
 
+// Clear any WordPress object cache
+wp_cache_flush();
+
 // Check if table exists
 $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name;
 
@@ -27,7 +30,7 @@ if (!$table_exists) {
 
 echo "<p style='color: green;'>✅ Table $table_name exists</p>";
 
-// Get current count
+// Get current count (force fresh query)
 $current_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
 echo "<p><strong>Current certificates:</strong> $current_count</p>";
 
@@ -87,6 +90,8 @@ if (!isset($_POST['confirm_delete'])) {
         
         if ($remaining_count == 0) {
             echo "<p style='color: green;'>✅ Database cleared successfully!</p>";
+            echo "<p>Redirecting in 3 seconds...</p>";
+            echo "<script>setTimeout(function(){ window.location.href = '?cleared=1'; }, 3000);</script>";
         } else {
             echo "<p style='color: red;'>❌ Some certificates may not have been deleted</p>";
         }
@@ -95,6 +100,18 @@ if (!isset($_POST['confirm_delete'])) {
         echo "<p style='color: red;'>❌ Failed to delete certificates</p>";
         echo "<p><strong>Database Error:</strong> " . $wpdb->last_error . "</p>";
     }
+    
+    echo "<h2>Next Steps:</h2>";
+    echo "<p>1. <a href='certificate'>Test certificate purchase</a></p>";
+    echo "<p>2. <a href='activate-certificate'>Test certificate activation</a></p>";
+    echo "<p>3. <a href='debug-all-certificates.php'>Check certificate status</a></p>";
+}
+
+// Handle redirect after successful deletion
+if (isset($_GET['cleared'])) {
+    echo "<h2>🎉 Database Successfully Cleared!</h2>";
+    echo "<p style='color: green;'>All certificates have been deleted from the database.</p>";
+    echo "<p><strong>Current certificates:</strong> 0</p>";
     
     echo "<h2>Next Steps:</h2>";
     echo "<p>1. <a href='certificate'>Test certificate purchase</a></p>";

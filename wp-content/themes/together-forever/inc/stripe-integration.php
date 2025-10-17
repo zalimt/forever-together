@@ -137,8 +137,10 @@ function tf_stripe_webhook() {
             $certificate_code = tf_save_certificate($certificate_data);
             
             if ($certificate_code) {
-                // Send email
-                tf_send_certificate_email($certificate_code, $metadata->recipient_email, $certificate_data);
+                // Email is now sent automatically in tf_save_certificate function
+                error_log('Webhook processed successfully: ' . $certificate_code);
+            } else {
+                error_log('Webhook failed to create certificate');
             }
         }
         

@@ -94,6 +94,13 @@ function tf_save_certificate($data) {
     );
     
     if ($result) {
+        // Only send email if certificate was successfully created
+        $email_sent = tf_send_certificate_email($certificate_code, $recipient_email, $data);
+        if ($email_sent) {
+            error_log('Certificate created and email sent successfully: ' . $certificate_code);
+        } else {
+            error_log('Certificate created but email failed: ' . $certificate_code);
+        }
         return $certificate_code;
     }
     

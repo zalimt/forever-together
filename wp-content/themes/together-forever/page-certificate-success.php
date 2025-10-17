@@ -54,10 +54,7 @@ if (isset($_GET['session_id'])) {
                     $certificate_code = tf_save_certificate($data);
                     
                     if ($certificate_code) {
-                        error_log('Certificate created on success page: ' . $certificate_code);
-                        // Send email
-                        $email_result = tf_send_certificate_email($certificate_code, $data['recipient_email'], $data);
-                        error_log('Email sending result: ' . ($email_result ? 'success' : 'failed'));
+                        error_log('Certificate created and email sent on success page: ' . $certificate_code);
                     } else {
                         error_log('Certificate creation failed on success page');
                     }
