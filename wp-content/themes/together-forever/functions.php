@@ -72,6 +72,26 @@ function together_forever_enqueue_styles() {
         );
     }
     
+    // Enqueue certificate page styles if on certificate page
+    if (is_page_template('certificate.php') || is_page('certificate')) {
+        wp_enqueue_style(
+            'together-forever-certificate',
+            get_stylesheet_directory_uri() . '/css/certificate.css',
+            array('together-forever-main'),
+            $theme_version
+        );
+    }
+    
+    // Enqueue activate certificate page styles if on activate certificate page
+    if (is_page_template('activate-certificate.php') || is_page('activate-certificate')) {
+        wp_enqueue_style(
+            'together-forever-activate-certificate',
+            get_stylesheet_directory_uri() . '/css/activate-certificate.css',
+            array('together-forever-main'),
+            $theme_version
+        );
+    }
+    
     // Enqueue Font Awesome for social media icons
     wp_enqueue_style(
         'font-awesome',
