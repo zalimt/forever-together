@@ -708,3 +708,41 @@ require_once get_stylesheet_directory() . '/inc/certificate-system.php';
  * This includes Stripe payment integration for certificates
  */
 require_once get_stylesheet_directory() . '/inc/stripe-integration.php';
+
+/**
+ * Auto Cache Busting for CSS Files
+ * 
+ * This automatically adds timestamps to CSS files to prevent caching issues
+ */
+function together_forever_add_cache_busting_to_styles($src, $handle) {
+    // Only apply to our theme's CSS files
+    if (strpos($src, get_stylesheet_directory_uri()) !== false && strpos($src, '.css') !== false) {
+        $file_path = str_replace(get_stylesheet_directory_uri(), get_stylesheet_directory(), $src);
+        if (file_exists($file_path)) {
+            $timestamp = filemtime($file_path);
+            $src = add_query_arg('v', $timestamp, $src);
+        }
+    }
+    return $src;
+}
+add_filter('style_loader_src', 'together_forever_add_cache_busting_to_styles', 10, 2);
+
+/**
+ * Force Theme Refresh
+ * 
+ * This function can be called to force WordPress to reload all theme files
+ */
+function together_forever_force_theme_refresh() {
+    // Clear all caches
+    wp_cache_flush();
+    
+    // Update theme version to force reload
+    $current_version = wp_get_theme()->get('Version');
+    update_option('stylesheet_version', $current_version . '.' . time());
+    
+    // Clear any plugin caches
+    if (function_exists('w3tc_flush_all')) w3tc_flush_all();
+    if (function_exists('wp_cache_clear_cache')) wp_cache_clear_cache();
+    if (function_exists('rocket_clean_domain')) rocket_clean_domain();
+    if (function_exists('litespeed_purge_all')) litespeed_purge_all();
+}
