@@ -1,0 +1,299 @@
+/**
+ * Together Forever - Activate Certificate Page Styles
+ * 
+ * @package Together_Forever
+ * @since 1.0.0
+ */
+
+@import 'root';
+
+/* ==========================================================================
+   Activate Certificate Section
+   ========================================================================== */
+
+.activate-certificate-content {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+    min-height: 70vh;
+}
+
+.activate-certificate-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.activate-certificate-section {
+    text-align: center;
+}
+
+.activate-title {
+    font-size: 42px;
+    font-weight: 700;
+    background: var(--tf-purple-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
+}
+
+.activate-intro {
+    font-size: 18px;
+    color: var(--tf-gray);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* Activation Form */
+.activation-form-section {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 4px 24px rgba(92, 36, 131, 0.1);
+    margin-bottom: 60px;
+
+    @media (max-width: 768px) {
+        padding: 30px 20px;
+    }
+}
+
+.activation-form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+}
+
+.code-input {
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.form-hint {
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* Activation Message */
+.activation-message {
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    &.success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+    }
+
+    &.error {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+/* Button Loader */
+.btn-activate {
+    position: relative;
+    min-width: 200px;
+
+    .btn-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Certificate Display */
+.certificate-display {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 4px 24px rgba(92, 36, 131, 0.1);
+    margin-bottom: 60px;
+
+    @media (max-width: 768px) {
+        padding: 30px 20px;
+    }
+}
+
+.certificate-success {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #46b450 0%, #2e7d32 100%);
+        color: white;
+        font-size: 48px;
+        line-height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 16px rgba(70, 180, 80, 0.3);
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--tf-purple);
+        margin: 0;
+
+        @media (max-width: 768px) {
+            font-size: 24px;
+        }
+    }
+}
+
+.certificate-details-box {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+
+    h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--tf-purple);
+        margin-bottom: 20px;
+        text-align: center;
+    }
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.detail-value {
+    color: var(--tf-gray);
+    font-weight: 500;
+}
+
+.certificate-actions {
+    text-align: center;
+}
+
+/* Help Section */
+.activation-help {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: left;
+
+    h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--tf-purple);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        padding: 30px 20px;
+    }
+}
+
+.help-items {
+    display: grid;
+    gap: 24px;
+}
+
+.help-item {
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 12px;
+    border-left: 4px solid var(--tf-purple);
+
+    strong {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--tf-purple);
+        margin-bottom: 8px;
+    }
+
+    p {
+        margin: 0;
+        color: var(--tf-gray);
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    a {
+        color: var(--tf-purple);
+        text-decoration: underline;
+
+        &:hover {
+            color: var(--tf-pink);
+        }
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .activate-certificate-content {
+        padding: 40px 0;
+    }
+
+    .activate-intro {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+}
+

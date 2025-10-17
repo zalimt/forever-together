@@ -674,3 +674,17 @@ function together_forever_force_flush_rewrite_rules() {
     }
 }
 add_action('init', 'together_forever_force_flush_rewrite_rules', 99);
+
+/**
+ * Include Certificate System
+ * 
+ * This includes the certificate payment and redemption system
+ */
+require_once get_stylesheet_directory() . '/inc/certificate-system.php';
+
+/**
+ * Include Stripe Integration
+ * 
+ * This includes Stripe payment integration for certificates
+ */
+require_once get_stylesheet_directory() . '/inc/stripe-integration.php';
