@@ -1,0 +1,33 @@
+# DISABLE HOSTINGER CACHE - Add this to your .htaccess file
+# Place this at the TOP of your .htaccess file, before any other rules
+
+# Disable all caching
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+    Header unset ETag
+    Header unset Last-Modified
+</IfModule>
+
+# Disable server-side caching
+<IfModule mod_expires.c>
+    ExpiresActive Off
+</IfModule>
+
+# Disable compression caching
+<IfModule mod_deflate.c>
+    SetEnvIfNoCase Request_URI \
+        \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \
+        \.(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary
+</IfModule>
+
+# Force fresh content
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Add cache-busting parameter to all requests
+    RewriteCond %{QUERY_STRING} !(^|&)v=
+    RewriteRule ^(.*)$ $1?v=%{TIME_YEAR}%{TIME_MON}%{TIME_DAY}%{TIME_HOUR}%{TIME_MIN} [QSA,L]
+</IfModule>
+

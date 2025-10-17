@@ -710,6 +710,13 @@ require_once get_stylesheet_directory() . '/inc/certificate-system.php';
 require_once get_stylesheet_directory() . '/inc/stripe-integration.php';
 
 /**
+ * Include Admin Cache Clear
+ * 
+ * This includes the admin cache clearing functionality
+ */
+require_once get_stylesheet_directory() . '/admin-cache-clear.php';
+
+/**
  * Auto Cache Busting for CSS Files
  * 
  * This automatically adds timestamps to CSS files to prevent caching issues
@@ -726,6 +733,293 @@ function together_forever_add_cache_busting_to_styles($src, $handle) {
     return $src;
 }
 add_filter('style_loader_src', 'together_forever_add_cache_busting_to_styles', 10, 2);
+
+/**
+ * Disable Page Caching for Admins
+ * 
+ * This ensures admins always see fresh content without cache
+ */
+function together_forever_disable_cache_for_admin() {
+    if (is_user_logged_in() && current_user_can('administrator')) {
+        // Set headers to prevent caching
+        header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        // Define constant to disable cache plugins
+        if (!defined('DONOTCACHEPAGE')) {
+            define('DONOTCACHEPAGE', true);
+        }
+        if (!defined('DONOTCACHEOBJECT')) {
+            define('DONOTCACHEOBJECT', true);
+        }
+        if (!defined('DONOTCACHEDB')) {
+            define('DONOTCACHEDB', true);
+        }
+        
+        // Disable WP Fastest Cache for admins
+        if (class_exists('WpFastestCache')) {
+            add_filter('wpfc_is_cacheable', '__return_false');
+        }
+        
+        // Disable LiteSpeed Cache for admins
+        if (defined('LSCWP_V')) {
+            add_filter('litespeed_control_set_nocache', '__return_true');
+        }
+    }
+}
+add_action('init', 'together_forever_disable_cache_for_admin', 1);
+
+/**
+ * Force disable cache for all users temporarily
+ * 
+ * This prevents cache regeneration after clearing
+ */
+function together_forever_force_disable_cache() {
+    // Check if we're in cache clearing mode
+    $cache_cleared = get_transient('together_forever_cache_cleared');
+    
+    if ($cache_cleared) {
+        // Disable ALL caching for 5 minutes after cache clear
+        if (!defined('DONOTCACHEPAGE')) {
+            define('DONOTCACHEPAGE', true);
+        }
+        if (!defined('DONOTCACHEOBJECT')) {
+            define('DONOTCACHEOBJECT', true);
+        }
+        if (!defined('DONOTCACHEDB')) {
+            define('DONOTCACHEDB', true);
+        }
+        
+        // Disable WP Fastest Cache
+        if (class_exists('WpFastestCache')) {
+            add_filter('wpfc_is_cacheable', '__return_false');
+        }
+        
+        // Disable LiteSpeed Cache
+        if (defined('LSCWP_V')) {
+            add_filter('litespeed_control_set_nocache', '__return_true');
+        }
+        
+        // Set no-cache headers
+        header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+    }
+}
+add_action('init', 'together_forever_force_disable_cache', 1);
+
+/**
+ * Hostinger Cache Bypass - Add cache-busting to all URLs
+ * 
+ * This adds cache-busting parameters to bypass Hostinger's aggressive caching
+ */
+function together_forever_add_cache_busting_to_urls() {
+    // Only add cache busting if we're not in admin and cache is disabled
+    if (!is_admin() && (get_transient('together_forever_cache_cleared') || get_transient('together_forever_disable_cache'))) {
+        // Add cache-busting parameter to all internal links
+        add_filter('the_content', 'together_forever_add_cache_busting_to_content');
+        add_filter('wp_get_attachment_url', 'together_forever_add_cache_busting_to_media');
+    }
+}
+add_action('init', 'together_forever_add_cache_busting_to_urls');
+
+/**
+ * Add cache-busting parameter to content links
+ */
+function together_forever_add_cache_busting_to_content($content) {
+    $cache_buster = '?v=' . time();
+    $home_url = home_url('/');
+    
+    // Add cache busting to internal links
+    $content = preg_replace(
+        '/(<a[^>]+href=["\'])(' . preg_quote($home_url, '/') . ')([^"\']*)(["\'][^>]*>)/i',
+        '$1$2$3' . $cache_buster . '$4',
+        $content
+    );
+    
+    return $content;
+}
+
+/**
+ * Add cache-busting parameter to media URLs
+ */
+function together_forever_add_cache_busting_to_media($url) {
+    if (get_transient('together_forever_cache_cleared') || get_transient('together_forever_disable_cache')) {
+        $cache_buster = '?v=' . time();
+        $url = add_query_arg('v', time(), $url);
+    }
+    return $url;
+}
+
+/**
+ * Generate cache-busting URLs for admin
+ */
+function together_forever_generate_cache_busting_urls() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+    
+    $timestamp = time();
+    $base_url = home_url('/');
+    
+    $cache_bust_urls = [
+        'front_page' => $base_url . '?v=' . $timestamp,
+        'front_page_alt1' => $base_url . '?nocache=' . $timestamp,
+        'front_page_alt2' => $base_url . '?cb=' . $timestamp,
+        'front_page_alt3' => $base_url . '?t=' . $timestamp,
+        'front_page_alt4' => $base_url . '?r=' . rand(1000, 9999),
+    ];
+    
+    return $cache_bust_urls;
+}
+
+/**
+ * Exclude Admin from WP Fastest Cache
+ */
+function together_forever_wpfc_exclude_admin($is_cacheable) {
+    if (is_user_logged_in() && current_user_can('administrator')) {
+        return false;
+    }
+    return $is_cacheable;
+}
+add_filter('wpfc_is_cacheable', 'together_forever_wpfc_exclude_admin');
+
+/**
+ * Force Version on Front Page Template
+ * 
+ * Adds a version parameter to force refresh
+ */
+function together_forever_force_front_page_refresh() {
+    if (is_front_page()) {
+        $front_page_file = get_stylesheet_directory() . '/front-page.php';
+        if (file_exists($front_page_file)) {
+            $version = filemtime($front_page_file);
+            // Output HTML comment with version for debugging
+            echo "<!-- Front Page Version: {$version} -->\n";
+        }
+    }
+}
+add_action('wp_head', 'together_forever_force_front_page_refresh', 999);
+
+/**
+ * Add cache clear button to admin bar
+ */
+function together_forever_add_cache_clear_to_admin_bar($wp_admin_bar) {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+    
+    $wp_admin_bar->add_node(array(
+        'id'    => 'clear-cache',
+        'title' => '⚡ Clear Cache',
+        'href'  => admin_url('themes.php?page=together-forever-cache'),
+        'meta'  => array(
+            'title' => 'Clear all caches (WP Fastest Cache, LiteSpeed, etc.)'
+        )
+    ));
+}
+add_action('admin_bar_menu', 'together_forever_add_cache_clear_to_admin_bar', 100);
+
+/**
+ * Quick cache clear via AJAX
+ */
+function together_forever_quick_cache_clear() {
+    if (!current_user_can('manage_options') || !wp_verify_nonce($_POST['nonce'], 'quick_cache_clear')) {
+        wp_die('Access denied');
+    }
+    
+    // Clear all caches
+    wp_cache_flush();
+    
+    // Clear WP Fastest Cache
+    if (class_exists('WpFastestCache')) {
+        $wpfc = new WpFastestCache();
+        if (method_exists($wpfc, 'deleteCache')) {
+            $wpfc->deleteCache(true);
+        }
+    }
+    
+    // Clear LiteSpeed Cache
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+    
+    // Clear other caches
+    if (function_exists('w3tc_flush_all')) w3tc_flush_all();
+    if (function_exists('wp_cache_clear_cache')) wp_cache_clear_cache();
+    if (function_exists('rocket_clean_domain')) rocket_clean_domain();
+    
+    // Update theme version
+    update_option('stylesheet_version', time());
+    
+    // Touch template files
+    $theme_dir = get_stylesheet_directory();
+    $files_to_touch = [
+        $theme_dir . '/front-page.php',
+        $theme_dir . '/header.php',
+        $theme_dir . '/footer.php',
+        $theme_dir . '/functions.php',
+    ];
+    
+    foreach ($files_to_touch as $file) {
+        if (file_exists($file)) {
+            touch($file);
+        }
+    }
+    
+    // Set transient to prevent cache regeneration for 5 minutes
+    set_transient('together_forever_cache_cleared', true, 300);
+    
+    wp_send_json_success('Cache cleared successfully! Cache disabled for 5 minutes.');
+}
+add_action('wp_ajax_quick_cache_clear', 'together_forever_quick_cache_clear');
+
+/**
+ * Add quick cache clear script to admin
+ */
+function together_forever_admin_cache_script() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+    ?>
+    <script>
+    jQuery(document).ready(function($) {
+        // Add quick clear button to admin bar
+        if ($('#wp-admin-bar-clear-cache').length) {
+            $('#wp-admin-bar-clear-cache').append('<span class="quick-clear" style="margin-left: 10px; color: #ff6b6b; cursor: pointer;" title="Quick Clear">⚡</span>');
+            
+            $('.quick-clear').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (confirm('Clear all caches now?')) {
+                    $(this).text('⏳');
+                    
+                    $.post(ajaxurl, {
+                        action: 'quick_cache_clear',
+                        nonce: '<?php echo wp_create_nonce('quick_cache_clear'); ?>'
+                    }, function(response) {
+                        if (response.success) {
+                            alert('✅ Cache cleared! Now hard refresh your browser (Ctrl+Shift+R)');
+                            $('.quick-clear').text('✅');
+                            setTimeout(function() {
+                                $('.quick-clear').text('⚡');
+                            }, 3000);
+                        } else {
+                            alert('❌ Error clearing cache');
+                            $('.quick-clear').text('⚡');
+                        }
+                    });
+                }
+            });
+        }
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer', 'together_forever_admin_cache_script');
+add_action('wp_footer', 'together_forever_admin_cache_script');
 
 /**
  * Force Theme Refresh
@@ -745,4 +1039,71 @@ function together_forever_force_theme_refresh() {
     if (function_exists('wp_cache_clear_cache')) wp_cache_clear_cache();
     if (function_exists('rocket_clean_domain')) rocket_clean_domain();
     if (function_exists('litespeed_purge_all')) litespeed_purge_all();
+    
+    // Clear WP Fastest Cache - this is crucial for template changes
+    if (function_exists('wpfc_clear_all_cache')) {
+        wpfc_clear_all_cache(true);
+    }
 }
+
+/**
+ * Clear Front Page Cache Automatically
+ * 
+ * Automatically clears the cache when the front page or related templates are saved
+ */
+function together_forever_clear_front_page_cache() {
+    // Clear all caches to ensure front page updates
+    wp_cache_flush();
+    
+    // Clear WP Fastest Cache specifically for homepage
+    if (function_exists('wpfc_clear_all_cache')) {
+        wpfc_clear_all_cache(true);
+    }
+    
+    // Clear specific page caches
+    if (class_exists('WpFastestCache')) {
+        $wpfc = new WpFastestCache();
+        if (method_exists($wpfc, 'deleteCache')) {
+            $wpfc->deleteCache(true); // Delete all cache
+        }
+    }
+    
+    // Clear LiteSpeed cache for homepage
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+    
+    // Set transient to prevent cache regeneration for 5 minutes
+    set_transient('together_forever_cache_cleared', true, 300);
+}
+
+/**
+ * Auto-clear cache on theme/template changes
+ * 
+ * This ensures that when you modify template files, the cache is automatically cleared
+ */
+function together_forever_auto_clear_cache_on_save() {
+    // Only run in admin or when accessing the site after a file change
+    if (!is_admin()) {
+        // Check if template file was recently modified (within last 60 seconds)
+        $front_page_template = get_stylesheet_directory() . '/front-page.php';
+        $functions_file = get_stylesheet_directory() . '/functions.php';
+        
+        if (file_exists($front_page_template)) {
+            $last_modified = filemtime($front_page_template);
+            $time_since_modified = time() - $last_modified;
+            
+            // If file was modified in last 60 seconds, clear cache
+            if ($time_since_modified < 60) {
+                $cache_cleared_flag = get_transient('together_forever_cache_cleared_' . $last_modified);
+                
+                if (!$cache_cleared_flag) {
+                    together_forever_clear_front_page_cache();
+                    // Set flag to prevent clearing multiple times
+                    set_transient('together_forever_cache_cleared_' . $last_modified, true, 300);
+                }
+            }
+        }
+    }
+}
+add_action('init', 'together_forever_auto_clear_cache_on_save', 1);
